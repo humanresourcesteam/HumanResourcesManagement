@@ -1,0 +1,14 @@
+server:
+  port: 9091
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 29003
+      username: "bilgeadam"
+      password: "adminservice"
+      database: "adminDB"
+
+jwt:
+  secretKey: ${PASSWORD}
