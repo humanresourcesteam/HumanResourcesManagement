@@ -5,6 +5,7 @@ buildscript {
 }
 
 dependencies {
+    implementation libs.sprinBootRabbitMQ
     implementation libs.springBootStarterDataJpa
     implementation libs.postgreSql
 }

@@ -2,6 +2,7 @@ package com.bilgeadam.repository.entity;
 
 import com.bilgeadam.repository.enums.ERole;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -25,5 +26,6 @@ public class Auth extends BaseEntity {
     String password;
 
     @Enumerated(EnumType.STRING)
-    ERole roles;
+    @Builder.Default
+    ERole roles = ERole.ADMIN;
 }
