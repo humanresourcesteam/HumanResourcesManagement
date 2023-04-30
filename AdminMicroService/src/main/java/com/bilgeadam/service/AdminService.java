@@ -6,12 +6,15 @@ import com.bilgeadam.dto.response.DetailResponseDto;
 import com.bilgeadam.dto.response.SummaryResponseDto;
 import com.bilgeadam.exception.AdminException;
 import com.bilgeadam.exception.EErrorType;
+import com.bilgeadam.mapper.IAdminMapper;
+import com.bilgeadam.rabbitmq.model.CreateModel;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +38,7 @@ public class AdminService extends ServiceManager<Admin, String> {
         List<SummaryResponseDto> summaryList = new ArrayList<>();
         findAll().forEach(x -> {
             summaryList.add(SummaryResponseDto.builder()
-                    .address(x.getAddress())
                     .email(x.getEmail())
-                    .phone(x.getPhone())
                     .surname(x.getSurname())
                     .firstName(x.getFirstName())
                     .build());
@@ -52,20 +53,20 @@ public class AdminService extends ServiceManager<Admin, String> {
         List<DetailResponseDto> detailInformation = new ArrayList<>();
         findAll().forEach(x -> {
             detailInformation.add(DetailResponseDto.builder()
-                    .address(x.getAddress())
-                    .phone(x.getPhone())
                     .surname(x.getSurname())
                     .email(x.getEmail())
-                    .birthdate(x.getBirthdate())
                     .dateOfEmployment(x.getDateOfEmployment())
-                    .secondSurname(x.getSecondSurname())
-                    .placeOfBirth(x.getPlaceOfBirth())
-                    .identificationNumber(x.getIdentificationNumber())
-                    .secondName(x.getSecondName())
                     .firstName(x.getFirstName())
                     .build());
         });
         return detailInformation;
+    }
+
+    public DetailResponseDto getDetailInformationForAdmin(BaseRequestDto baseRequestDto) {
+        Optional<Long> auth = jwtTokenManager.getIdFromToken(baseRequestDto.getToken());
+        if (auth.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
+        Optional<Admin> admin = repository.findOptionalByAuthid(auth.get());
+        return IAdminMapper.INSTANCE.toDetailResponseDto(admin.get());
     }
 
     public String  updateInfo(UpdateAdminInfoRequestDto updateRequestDto) {
@@ -73,18 +74,22 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
         System.out.println(admin);
-        admin.get().setAddress(updateRequestDto.getAddress());
-        admin.get().setBirthdate(updateRequestDto.getBirthdate());
         admin.get().setEmail(updateRequestDto.getEmail());
-        admin.get().setPhone(updateRequestDto.getPhone());
         admin.get().setSurname(updateRequestDto.getSurname());
         admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
         admin.get().setAuthid(authid.get());
-        admin.get().setPlaceOfBirth(updateRequestDto.getPlaceOfBirth());
-        admin.get().setSecondSurname(updateRequestDto.getSecondSurname());
+        admin.get().setImage(updateRequestDto.getImage());
         admin.get().setFirstName(updateRequestDto.getFirstName());
-        admin.get().setSecondName(updateRequestDto.getSecondName());
         update(admin.get());
         return "bilgiler güncellendi";
+    }
+
+    public void saveAdmin(CreateModel createModel) {
+       Admin admin = Admin.builder()
+               .authid(createModel.getAuthid())
+               .email(createModel.getEmail())
+               .dateOfEmployment(LocalDate.now())
+               .build();
+       save(admin);
     }
 }

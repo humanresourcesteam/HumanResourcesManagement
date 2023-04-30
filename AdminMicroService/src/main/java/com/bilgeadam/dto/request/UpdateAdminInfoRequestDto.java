@@ -15,27 +15,13 @@ import java.time.LocalDate;
 public class UpdateAdminInfoRequestDto {
 
     String token;
-
     String firstName;
-
-    String secondName;
-
     String surname;
-
-    String secondSurname;
-
-    LocalDate birthdate;
-
     LocalDate dateOfEmployment;
-
-    String placeOfBirth;
-
-    String identificationNumber;
-
     String email;
 
-    String address;
+    String image;
 
-    String phone;
+
 
 }

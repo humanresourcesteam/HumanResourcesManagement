@@ -15,24 +15,11 @@ public class DetailResponseDto {
 
     String firstName;
 
-    String secondName;
-
     String surname;
-
-    String secondSurname;
-
-    LocalDate birthdate;
 
     LocalDate dateOfEmployment;
 
-    String placeOfBirth;
-
-    String identificationNumber;
-
     String email;
-
-    String address;
-
-    String phone;
+    String image;
 
 }

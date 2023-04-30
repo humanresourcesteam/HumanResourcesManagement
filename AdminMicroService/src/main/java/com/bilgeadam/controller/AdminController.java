@@ -35,4 +35,9 @@ public class AdminController {
     public ResponseEntity<String>updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto){
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
+
+    @GetMapping("/getınfo")
+    public ResponseEntity<DetailResponseDto>getDetailInformationForAdmin(BaseRequestDto baseRequestDto){
+        return ResponseEntity.ok(adminService.getDetailInformationForAdmin(baseRequestDto));
+    }
 }

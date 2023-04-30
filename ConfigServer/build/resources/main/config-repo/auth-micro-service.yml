@@ -2,6 +2,11 @@ server:
   port: 9090
 
 spring:
+  rabbitmq:
+    host: localhost
+    username: user
+    password: user
+    port: 5672
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/authservice
@@ -9,7 +14,7 @@ spring:
     password: 3462
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
     show-sql: true
     properties:
