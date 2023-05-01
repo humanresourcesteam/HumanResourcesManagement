@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.bilgeadam.constant.EndPoints.*;
@@ -32,7 +33,7 @@ public class AdminController {
     }
 
     @PutMapping(UPDATE)
-    public ResponseEntity<String>updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto){
+    public ResponseEntity<String>updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
 

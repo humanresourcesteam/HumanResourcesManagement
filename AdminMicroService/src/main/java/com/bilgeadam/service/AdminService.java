@@ -10,10 +10,12 @@ import com.bilgeadam.mapper.IAdminMapper;
 import com.bilgeadam.rabbitmq.model.CreateModel;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
+import com.bilgeadam.utility.FileService;
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,13 @@ public class AdminService extends ServiceManager<Admin, String> {
 
     private final JwtTokenManager jwtTokenManager;
 
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager) {
+    private final FileService fileService;
+
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, FileService fileService) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
+        this.fileService = fileService;
     }
 
     public List<SummaryResponseDto> getSummary(BaseRequestDto baseRequestDto) {
@@ -69,16 +74,19 @@ public class AdminService extends ServiceManager<Admin, String> {
         return IAdminMapper.INSTANCE.toDetailResponseDto(admin.get());
     }
 
-    public String  updateInfo(UpdateAdminInfoRequestDto updateRequestDto) {
+    public String  updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
-        System.out.println(admin);
+
         admin.get().setEmail(updateRequestDto.getEmail());
         admin.get().setSurname(updateRequestDto.getSurname());
         admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
         admin.get().setAuthid(authid.get());
-        admin.get().setImage(updateRequestDto.getImage());
+       if (updateRequestDto.getImage()!=null){
+        String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
+        admin.get().setImage(fileName);
+       }
         admin.get().setFirstName(updateRequestDto.getFirstName());
         update(admin.get());
         return "bilgiler güncellendi";
