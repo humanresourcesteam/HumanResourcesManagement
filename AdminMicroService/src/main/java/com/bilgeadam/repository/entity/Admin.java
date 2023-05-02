@@ -7,7 +7,6 @@ import lombok.experimental.SuperBuilder;
 import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 import java.time.LocalDate;
 
 
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 @Document
-public class Admin extends BaseEntity{
+public class Admin extends BaseEntity {
 
 
     // FOTOGRAF EKLEME İŞLEMİ BİRLİKTE BAKILACAK...
@@ -31,5 +30,5 @@ public class Admin extends BaseEntity{
 
     String image;
 
-
+    String role = "ADMIN";
 }

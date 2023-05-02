@@ -77,13 +77,15 @@ public class AdminService extends ServiceManager<Admin, String> {
     public String  updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
-        Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
 
+
+
+        Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
         admin.get().setEmail(updateRequestDto.getEmail());
         admin.get().setSurname(updateRequestDto.getSurname());
         admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
         admin.get().setAuthid(authid.get());
-       if (updateRequestDto.getImage()!=null){
+       if (updateRequestDto.getImage()!=""){
         String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
         admin.get().setImage(fileName);
        }
