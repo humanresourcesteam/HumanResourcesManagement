@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface IAdminRepository extends MongoRepository<Admin,String> {
 
     Optional<Admin> findOptionalByAuthid(Long authid);
+
+
+
+
 }

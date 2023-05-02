@@ -22,4 +22,6 @@ public class DetailResponseDto {
     String email;
     String image;
 
+    String role;
+
 }

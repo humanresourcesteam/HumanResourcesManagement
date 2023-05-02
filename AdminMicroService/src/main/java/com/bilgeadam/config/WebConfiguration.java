@@ -8,6 +8,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:./pictures-storage/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:C:/Users/PC/Desktop/human-backend/HumanResourcesManagement/pictures-storage/");
     }
 }
