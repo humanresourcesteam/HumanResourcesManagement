@@ -14,5 +14,4 @@ public interface IAdminRepository extends MongoRepository<Admin,String> {
 
 
 
-
 }

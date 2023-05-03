@@ -8,6 +8,8 @@ import com.bilgeadam.exception.AdminException;
 import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.mapper.IAdminMapper;
 import com.bilgeadam.rabbitmq.model.CreateModel;
+import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
+import com.bilgeadam.rabbitmq.producer.UpdateAuthProducer;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
 import com.bilgeadam.utility.FileService;
@@ -30,11 +32,14 @@ public class AdminService extends ServiceManager<Admin, String> {
 
     private final FileService fileService;
 
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, FileService fileService) {
+    private final UpdateAuthProducer updateAuthProducer;
+
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, FileService fileService, UpdateAuthProducer updateAuthProducer) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
         this.fileService = fileService;
+        this.updateAuthProducer = updateAuthProducer;
     }
 
     public List<SummaryResponseDto> getSummary(BaseRequestDto baseRequestDto) {
@@ -74,24 +79,32 @@ public class AdminService extends ServiceManager<Admin, String> {
         return IAdminMapper.INSTANCE.toDetailResponseDto(admin.get());
     }
 
-    public String  updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    public boolean   updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
-
-
-
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
-        admin.get().setEmail(updateRequestDto.getEmail());
-        admin.get().setSurname(updateRequestDto.getSurname());
-        admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
-        admin.get().setAuthid(authid.get());
-       if (updateRequestDto.getImage()!=""){
-        String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
-        admin.get().setImage(fileName);
-       }
-        admin.get().setFirstName(updateRequestDto.getFirstName());
-        update(admin.get());
-        return "bilgiler güncellendi";
+        boolean result =  updateAuthProducer.updateAuth(UpdateAuthModel.builder()
+                .email(updateRequestDto.getEmail())
+                .authid(authid.get())
+                .build());
+        if (result==true){
+            if (updateRequestDto.getImage()!=""){
+                String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
+                admin.get().setImage(fileName);
+            }
+            admin.get().setEmail(updateRequestDto.getEmail());
+            admin.get().setSurname(updateRequestDto.getSurname());
+            admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
+            admin.get().setAuthid(admin.get().getAuthid());
+
+            admin.get().setFirstName(updateRequestDto.getFirstName());
+
+            update(admin.get());
+
+            return true;
+        }
+
+        return false;
     }
 
     public void saveAdmin(CreateModel createModel) {
@@ -102,4 +115,7 @@ public class AdminService extends ServiceManager<Admin, String> {
                .build();
        save(admin);
     }
+
+
+    
 }
