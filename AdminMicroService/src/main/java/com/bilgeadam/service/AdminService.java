@@ -100,7 +100,7 @@ public class AdminService extends ServiceManager<Admin, String> {
             admin.get().setFirstName(updateRequestDto.getFirstName());
 
             update(admin.get());
-
+            System.out.println("ali");
             return true;
         }
 
