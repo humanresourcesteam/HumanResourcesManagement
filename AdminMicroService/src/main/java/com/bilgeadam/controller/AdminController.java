@@ -33,7 +33,7 @@ public class AdminController {
     }
 
     @PutMapping(UPDATE)
-    public ResponseEntity<String>updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    public ResponseEntity<Boolean> updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
 
