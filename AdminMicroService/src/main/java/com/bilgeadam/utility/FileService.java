@@ -12,6 +12,8 @@ public class FileService {
     public String decodeBase64(String image) throws IOException {
         String fileName = generateRandomName();
         File target = new File("pictures-storage/"+fileName);
+
+//                new File("pictures-storage/"+fileName);
 //                new File("C:/Users/PC/Desktop/human-backend/HumanResourcesManagement/pictures-storage/"+fileName);
         OutputStream outputStream = new FileOutputStream(target);
         byte [] base64 = Base64.getDecoder().decode(image);

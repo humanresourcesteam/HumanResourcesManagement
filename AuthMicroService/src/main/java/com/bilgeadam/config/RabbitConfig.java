@@ -26,6 +26,14 @@ public class RabbitConfig {
     private String queueUpdateAuth = "queue-update-auth";
 
     private String queueAdminControl = "queue-admin-control";
+
+    private String exchangeManagerAuth = "exchange-manager-auth";
+
+    private String keyManagerAddAuth = "exchange-manager-auth";
+
+    private String queueAddAuthFromManager = "queue-auth-manager-add";
+
+
     @Bean
     public DirectExchange directExchangeUpdateAuth(){
         return new DirectExchange(exchangeUpdateAuth);
@@ -39,6 +47,10 @@ public class RabbitConfig {
     @Bean
     public DirectExchange directExchangeAdminControl(){
         return new DirectExchange(exchangeAdminControl);
+    }
+    @Bean
+    DirectExchange directExchangeManagerAuth() {
+        return new DirectExchange(exchangeManagerAuth);
     }
     @Bean
     public Queue queueUpdateAuth(){
@@ -56,6 +68,17 @@ public class RabbitConfig {
         return new Queue(queueAdminControl);
     }
 
+
+
+    @Bean
+    Queue queueManagerAddAuth() {
+        return new Queue(queueAddAuthFromManager);
+    }
+
+    @Bean
+    Binding bindingAddManagerAuth(DirectExchange directExchangeManagerAuth, Queue queueManagerAddAuth) {
+        return BindingBuilder.bind(queueManagerAddAuth).to(directExchangeManagerAuth).with(keyManagerAddAuth);
+    }
     @Bean
     public Binding bindingUpdateAuth(final DirectExchange directExchangeUpdateAuth,final Queue queueUpdateAuth){
         return BindingBuilder.bind(queueUpdateAuth).to(directExchangeUpdateAuth).with(keyUpdateAuth);

@@ -83,6 +83,20 @@ public class AdminService extends ServiceManager<Admin, String> {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
+
+
+        if(admin.get().getEmail().equals(updateRequestDto.getEmail())){
+            if (updateRequestDto.getImage()!=""){
+                String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
+                admin.get().setImage(fileName);}
+
+                admin.get().setEmail(updateRequestDto.getEmail());
+                admin.get().setSurname(updateRequestDto.getSurname());
+                admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
+                admin.get().setAuthid(admin.get().getAuthid());
+                admin.get().setFirstName(updateRequestDto.getFirstName());
+                update(admin.get());
+        } else{
         boolean result =  updateAuthProducer.updateAuth(UpdateAuthModel.builder()
                 .email(updateRequestDto.getEmail())
                 .authid(authid.get())
@@ -90,21 +104,19 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (result==true){
             if (updateRequestDto.getImage()!=""){
                 String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
-                admin.get().setImage(fileName);
-            }
+                admin.get().setImage(fileName);}
+
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
             admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
             admin.get().setAuthid(admin.get().getAuthid());
-
             admin.get().setFirstName(updateRequestDto.getFirstName());
-
             update(admin.get());
-            System.out.println("ali");
             return true;
         }
 
-        return false;
+    }
+    return false;
     }
 
     public void saveAdmin(CreateModel createModel) {

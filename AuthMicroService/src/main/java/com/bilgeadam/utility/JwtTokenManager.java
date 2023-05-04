@@ -16,7 +16,7 @@ public class JwtTokenManager {
     @Value("${jwt.secretKey}")
     private String passwordKey;
 
-    private final Long exTime = 1000L*60*600;
+    private final Long exTime = 1000L*60*1440;
 
     public Optional<String> createToken(Long id){
         String token ="";

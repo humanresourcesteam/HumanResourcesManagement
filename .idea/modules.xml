@@ -5,9 +5,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdminMicroService/HumanResourcesManagement.AdminMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdminMicroService/HumanResourcesManagement.AdminMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ConfigServer/HumanResourcesManagement.ConfigServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ConfigServer/HumanResourcesManagement.ConfigServer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ManagerMicroService/HumanResourcesManagement.ManagerMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ManagerMicroService/HumanResourcesManagement.ManagerMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdminMicroService/com.bilgeadam.HumanResourcesManagement.AdminMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdminMicroService/com.bilgeadam.HumanResourcesManagement.AdminMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthMicroService/com.bilgeadam.HumanResourcesManagement.AuthMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthMicroService/com.bilgeadam.HumanResourcesManagement.AuthMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ConfigServer/com.bilgeadam.HumanResourcesManagement.ConfigServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ConfigServer/com.bilgeadam.HumanResourcesManagement.ConfigServer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdminMicroService/human_backend.HumanResourcesManagement.AdminMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdminMicroService/human_backend.HumanResourcesManagement.AdminMicroService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthMicroService/human_backend.HumanResourcesManagement.AuthMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthMicroService/human_backend.HumanResourcesManagement.AuthMicroService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ConfigServer/human_backend.HumanResourcesManagement.ConfigServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ConfigServer/human_backend.HumanResourcesManagement.ConfigServer.main.iml" />
     </modules>
   </component>
 </project>

@@ -22,23 +22,26 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    @PutMapping(UPDATE)
+    public ResponseEntity<Boolean> updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+        return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
+    }
     @GetMapping(SUMMARY)
     public ResponseEntity<List<SummaryResponseDto>>summary(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getSummary(baseRequestDto));
     }
-
     @GetMapping(DETAIL_INFORMATION)
     public ResponseEntity<List<DetailResponseDto>>detailInformation(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getDetailInformation(baseRequestDto));
-    }
-
-    @PutMapping(UPDATE)
-    public ResponseEntity<Boolean> updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
-        return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
 
     @GetMapping("/getınfo")
     public ResponseEntity<DetailResponseDto>getDetailInformationForAdmin(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getDetailInformationForAdmin(baseRequestDto));
     }
+
+
+
+
+
 }
