@@ -7,6 +7,7 @@ import com.bilgeadam.dto.response.DetailResponseDto;
 import com.bilgeadam.dto.response.SummaryResponseDto;
 import com.bilgeadam.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,15 +16,15 @@ import java.util.List;
 
 import static com.bilgeadam.constant.EndPoints.*;
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@RequestMapping(ADMIN)
+@RequestMapping(ADMIN )
 public class AdminController {
 
     private final AdminService adminService;
 
     @PutMapping(UPDATE)
-    public ResponseEntity<Boolean> updateInfo(@RequestBody UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    public ResponseEntity<Boolean> updateInfo(@RequestBody  UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
     @GetMapping(SUMMARY)
@@ -34,14 +35,9 @@ public class AdminController {
     public ResponseEntity<List<DetailResponseDto>>detailInformation(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getDetailInformation(baseRequestDto));
     }
-
     @GetMapping("/getınfo")
     public ResponseEntity<DetailResponseDto>getDetailInformationForAdmin(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getDetailInformationForAdmin(baseRequestDto));
     }
-
-
-
-
 
 }

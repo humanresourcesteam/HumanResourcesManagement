@@ -12,7 +12,9 @@ import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
 import com.bilgeadam.rabbitmq.producer.UpdateAuthProducer;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
+
 import com.bilgeadam.utility.FileService;
+
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
@@ -30,16 +32,16 @@ public class AdminService extends ServiceManager<Admin, String> {
 
     private final JwtTokenManager jwtTokenManager;
 
+    private final UpdateAuthProducer updateAuthProducer;
     private final FileService fileService;
 
-    private final UpdateAuthProducer updateAuthProducer;
-
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, FileService fileService, UpdateAuthProducer updateAuthProducer) {
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer,  FileService fileService) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
         this.fileService = fileService;
         this.updateAuthProducer = updateAuthProducer;
+
     }
 
     public List<SummaryResponseDto> getSummary(BaseRequestDto baseRequestDto) {
@@ -90,44 +92,45 @@ public class AdminService extends ServiceManager<Admin, String> {
                 String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
                 admin.get().setImage(fileName);}
 
-                admin.get().setEmail(updateRequestDto.getEmail());
-                admin.get().setSurname(updateRequestDto.getSurname());
-                admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
-                admin.get().setAuthid(admin.get().getAuthid());
-                admin.get().setFirstName(updateRequestDto.getFirstName());
-                update(admin.get());
-        } else{
-        boolean result =  updateAuthProducer.updateAuth(UpdateAuthModel.builder()
-                .email(updateRequestDto.getEmail())
-                .authid(authid.get())
-                .build());
-        if (result==true){
-            if (updateRequestDto.getImage()!=""){
-                String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
-                admin.get().setImage(fileName);}
-
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
             admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
             admin.get().setAuthid(admin.get().getAuthid());
             admin.get().setFirstName(updateRequestDto.getFirstName());
             update(admin.get());
-            return true;
-        }
+        } else{
+            boolean result =  updateAuthProducer.updateAuth(UpdateAuthModel.builder()
+                    .email(updateRequestDto.getEmail())
+                    .authid(authid.get())
+                    .build());
+            if (result==true){
+                if (updateRequestDto.getImage()!=""){
+                    String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
+                    admin.get().setImage(fileName);}
 
+                admin.get().setEmail(updateRequestDto.getEmail());
+                admin.get().setSurname(updateRequestDto.getSurname());
+                admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
+                admin.get().setAuthid(admin.get().getAuthid());
+                admin.get().setFirstName(updateRequestDto.getFirstName());
+                update(admin.get());
+                return true;
+            }
+
+        }
+        return false;
     }
-    return false;
-    }
+
 
     public void saveAdmin(CreateModel createModel) {
-       Admin admin = Admin.builder()
-               .authid(createModel.getAuthid())
-               .email(createModel.getEmail())
-               .dateOfEmployment(LocalDate.now())
-               .build();
-       save(admin);
+        Admin admin = Admin.builder()
+                .authid(createModel.getAuthid())
+                .email(createModel.getEmail())
+                .dateOfEmployment(LocalDate.now())
+                .build();
+        save(admin);
     }
 
 
-    
+
 }

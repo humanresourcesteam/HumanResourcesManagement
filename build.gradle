@@ -47,6 +47,8 @@ allprojects {
         implementation libs.springCloudOpenFeign
         implementation libs.jwt
         implementation libs.springCloudConfigClient
+        implementation 'com.dropbox.core:dropbox-core-sdk:3.1.3'
+
 
     }
 }

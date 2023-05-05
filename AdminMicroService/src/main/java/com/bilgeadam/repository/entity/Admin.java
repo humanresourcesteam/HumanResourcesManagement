@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nonapi.io.github.classgraph.json.Id;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -31,4 +32,6 @@ public class Admin extends BaseEntity {
     String image;
 
     String role = "ADMIN";
+
+    ObjectId avatar;
 }
