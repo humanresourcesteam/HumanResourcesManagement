@@ -2,8 +2,8 @@ package com.bilgeadam.repository.enums;
 
 public enum Title {
 
-    ANONIM_SIRKETI,
-    LIMITED_SIRKETI,
-    KOOPERATIF,
-    KOLLEKTIF
+    JOIN_STOCK_COMPANY,
+    LIMITED_COMPANY,
+    COOPERATIVE,
+    COLLECTIVE
 }

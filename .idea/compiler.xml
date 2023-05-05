@@ -10,10 +10,11 @@
         </processorPath>
         <module name="HumanResourcesManagement.AuthMicroService.main" />
         <module name="HumanResourcesManagement.main" />
-        <module name="HumanResourcesManagement.AdminMicroService.main" />
         <module name="HumanResourcesManagement.ManagerMicroService.main" />
+        <module name="HumanResourcesManagement.AdminMicroService.main" />
+        <module name="HumanResourcesManagement.CompanyMicroService.main" />
+        <module name="HumanResourcesManagement.WorkerMicroService.main" />
         <module name="HumanResourcesManagement.ConfigServer.main" />
-        <module name="HumanResourcesManagement.UserMicroService.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />

@@ -26,8 +26,8 @@ public class Company extends BaseEntity{
 
     String name;
 
-    @Builder.Default
-    Title title = Title.LIMITED_SIRKETI;
+
+    Title title ;
 
     String centralRegistrySystem;
 
@@ -51,7 +51,7 @@ public class Company extends BaseEntity{
 
     LocalDate contractEndYear;
 
-    @Builder.Default
-    Status status = Status.ACTIVE;
+
+    Status status ;
 
 }

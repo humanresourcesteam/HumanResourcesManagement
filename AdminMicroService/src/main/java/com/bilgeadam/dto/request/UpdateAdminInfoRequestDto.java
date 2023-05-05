@@ -18,8 +18,8 @@ public class UpdateAdminInfoRequestDto {
     String token;
     String firstName;
     String surname;
-    LocalDate dateOfEmployment;
+  //  LocalDate dateOfEmployment;
     String email;
-    String image;
 
+    MultipartFile image;
 }

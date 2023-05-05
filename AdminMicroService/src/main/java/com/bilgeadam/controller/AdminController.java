@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,8 +24,9 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @PutMapping(UPDATE)
-    public ResponseEntity<Boolean> updateInfo(@RequestBody  UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    @PostMapping( UPDATE)
+    public ResponseEntity<Boolean> updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+        System.out.println(updateRequestDto);
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
     @GetMapping(SUMMARY)

@@ -17,13 +17,14 @@ import com.bilgeadam.utility.FileService;
 
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AdminService extends ServiceManager<Admin, String> {
@@ -35,7 +36,7 @@ public class AdminService extends ServiceManager<Admin, String> {
     private final UpdateAuthProducer updateAuthProducer;
     private final FileService fileService;
 
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer,  FileService fileService) {
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer, FileService fileService) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
@@ -81,36 +82,57 @@ public class AdminService extends ServiceManager<Admin, String> {
         return IAdminMapper.INSTANCE.toDetailResponseDto(admin.get());
     }
 
-    public boolean   updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    public String imageUpload(MultipartFile file, Long id) {
+        // Configure
+        Map config = new HashMap();
+        config.put("cloud_name", "doa04qdhh");
+        config.put("api_key", "261194321947226");
+        config.put("api_secret", "K5_9m33MSDBvu4MZuHhHWeFxNeA");
+        Cloudinary cloudinary = new Cloudinary(config);
+
+        try {
+            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            String url = (String) result.get("url");
+            System.out.println(url + " --------------------------");
+            return url;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public boolean updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
 
 
-        if(admin.get().getEmail().equals(updateRequestDto.getEmail())){
-            if (updateRequestDto.getImage()!=""){
-                String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
-                admin.get().setImage(fileName);}
+        if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
+          //  if (updateRequestDto.getImage() != "") {
+
+                admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
+            //}
 
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
-            admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
+        //    admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
             admin.get().setAuthid(admin.get().getAuthid());
             admin.get().setFirstName(updateRequestDto.getFirstName());
             update(admin.get());
-        } else{
-            boolean result =  updateAuthProducer.updateAuth(UpdateAuthModel.builder()
+        } else {
+            boolean result = updateAuthProducer.updateAuth(UpdateAuthModel.builder()
                     .email(updateRequestDto.getEmail())
                     .authid(authid.get())
                     .build());
-            if (result==true){
-                if (updateRequestDto.getImage()!=""){
-                    String fileName =  fileService.decodeBase64(updateRequestDto.getImage());
-                    admin.get().setImage(fileName);}
+            if (result == true) {
+              //  if (updateRequestDto.getImage() != "") {
+
+                    admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
+            //    }
 
                 admin.get().setEmail(updateRequestDto.getEmail());
                 admin.get().setSurname(updateRequestDto.getSurname());
-                admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
+        //        admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
                 admin.get().setAuthid(admin.get().getAuthid());
                 admin.get().setFirstName(updateRequestDto.getFirstName());
                 update(admin.get());
@@ -130,7 +152,6 @@ public class AdminService extends ServiceManager<Admin, String> {
                 .build();
         save(admin);
     }
-
 
 
 }
