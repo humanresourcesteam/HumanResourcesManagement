@@ -5,7 +5,7 @@ spring:
   rabbitmq:
     host: localhost
     username: user
-    password: password
+    password: user
     port: 5672
   data:
     mongodb:

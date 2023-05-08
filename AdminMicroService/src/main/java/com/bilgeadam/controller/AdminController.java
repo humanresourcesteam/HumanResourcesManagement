@@ -19,7 +19,7 @@ import static com.bilgeadam.constant.EndPoints.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@RequestMapping(ADMIN )
+@RequestMapping(API+VERSION+ADMIN )
 public class AdminController {
 
     private final AdminService adminService;
@@ -40,6 +40,11 @@ public class AdminController {
     @GetMapping("/getınfo")
     public ResponseEntity<DetailResponseDto>getDetailInformationForAdmin(BaseRequestDto baseRequestDto){
         return ResponseEntity.ok(adminService.getDetailInformationForAdmin(baseRequestDto));
+    }
+    
+    @GetMapping("/apideneme")
+    public ResponseEntity<String>apideneme(){
+        return ResponseEntity.ok("api deniyoruz");
     }
 
 }
