@@ -15,14 +15,16 @@ import static com.bilgeadam.constant.EndPoints.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(COMPANY)
+@CrossOrigin("*")
 public class CompanyController {
 
     private final CompanyService companyService;
 
     @PostMapping(ADDCOMPANY)
-    public ResponseEntity<Boolean> addCompany(@RequestBody AddCompanyRequestDto addCompanyRequestDto) throws IOException {
+    public ResponseEntity<Boolean> addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
         return ResponseEntity.ok(companyService.addCompany(addCompanyRequestDto));
     }
+
 
     @GetMapping("/get-all-summary")
     public ResponseEntity<List<SummaryInfoCompany>>getAllCompanySummaryInfo(){

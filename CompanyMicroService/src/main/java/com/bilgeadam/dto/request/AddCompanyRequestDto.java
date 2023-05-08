@@ -2,10 +2,13 @@ package com.bilgeadam.dto.request;
 
 import com.bilgeadam.repository.enums.Status;
 import com.bilgeadam.repository.enums.Title;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -17,8 +20,6 @@ import java.util.Date;
 public class AddCompanyRequestDto {
 
 
-    String token;
-
     String name;
 
     Title title;
@@ -29,7 +30,7 @@ public class AddCompanyRequestDto {
 
     String taxOffice;
 
-    String image;
+    MultipartFile image;
 
     String phone;
 
@@ -38,14 +39,14 @@ public class AddCompanyRequestDto {
     String email;
 
     Integer numberOfWorkers;
-
-    LocalDate yearOfEstablishment;
-
-    LocalDate contractStartYear;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate contractEndYear;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    LocalDate contractStartYear;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    LocalDate yearOfEstablishment;
 
     Status status;
 

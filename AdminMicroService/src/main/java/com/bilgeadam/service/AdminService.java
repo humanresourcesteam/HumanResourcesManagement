@@ -108,10 +108,10 @@ public class AdminService extends ServiceManager<Admin, String> {
 
 
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
-          //  if (updateRequestDto.getImage() != "") {
+            if (updateRequestDto.getImage() != null) {
 
                 admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
-            //}
+            }
 
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
@@ -125,10 +125,10 @@ public class AdminService extends ServiceManager<Admin, String> {
                     .authid(authid.get())
                     .build());
             if (result == true) {
-              //  if (updateRequestDto.getImage() != "") {
+                if (updateRequestDto.getImage() != null) {
 
                     admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
-            //    }
+               }
 
                 admin.get().setEmail(updateRequestDto.getEmail());
                 admin.get().setSurname(updateRequestDto.getSurname());
