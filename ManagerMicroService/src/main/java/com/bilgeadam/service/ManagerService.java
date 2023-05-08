@@ -7,6 +7,7 @@ import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.exception.ManagerException;
 import com.bilgeadam.mapper.IManagerMapper;
 import com.bilgeadam.rabbitmq.model.CreateManager;
+import com.bilgeadam.rabbitmq.model.WorkerModel;
 import com.bilgeadam.rabbitmq.producer.ManagerProducer;
 import com.bilgeadam.repository.IManagerRepository;
 import com.bilgeadam.repository.entity.Manager;
@@ -98,4 +99,10 @@ public class ManagerService extends ServiceManager<Manager, String> {
         });
         return sumamryInfoManagers;
     }
+
+//    public String  workerCompanyName(WorkerModel workerModel) {
+//        Optional<Manager> manager = managerRepository.findOptionalById(workerModel.getId());
+//        manager.get().
+//        return
+//    }
 }

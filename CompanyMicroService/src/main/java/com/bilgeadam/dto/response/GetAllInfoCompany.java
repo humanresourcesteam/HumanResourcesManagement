@@ -44,8 +44,9 @@ public class GetAllInfoCompany {
     LocalDate contractStartYear;
 
     LocalDate contractEndYear;
-    Status status ;
+    Status status;
 
-
+    Integer allContractDay;
+    Integer remainingDays;
 
 }

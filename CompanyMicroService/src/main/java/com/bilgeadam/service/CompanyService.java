@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -100,8 +100,16 @@ public class CompanyService extends ServiceManager<Company,String > {
 
 
     public GetAllInfoCompany getAllInfo(String id) {
-        Optional<Company>companyOptional = companyRepository.findById(id);
-        return ICompanyMapper.INSTANCE.fromInfoCompany(companyOptional.get());
+        Optional<Company> companyOptional = companyRepository.findById(id);
+
+        long diff = ChronoUnit.DAYS.between(companyOptional.get().getContractStartYear(), companyOptional.get().getContractEndYear());
+        System.out.println(diff);
+        LocalDate date = LocalDate.now();
+        long remaining = ChronoUnit.DAYS.between(date, companyOptional.get().getContractEndYear());
+        GetAllInfoCompany getAllInfoCompany = ICompanyMapper.INSTANCE.fromInfoCompany(companyOptional.get());
+        getAllInfoCompany.setAllContractDay((int) diff);
+        getAllInfoCompany.setRemainingDays((int) remaining);
+        return getAllInfoCompany;
     }
 
 
