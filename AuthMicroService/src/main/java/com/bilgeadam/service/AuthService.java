@@ -9,6 +9,7 @@ import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.mapper.IAuthMapper;
 import com.bilgeadam.rabbitmq.model.CreateManager;
 import com.bilgeadam.rabbitmq.model.CreateModel;
+import com.bilgeadam.rabbitmq.model.MailManagerPassword;
 import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
 import com.bilgeadam.rabbitmq.producer.AuthProducer;
 import com.bilgeadam.repository.IAuthRepository;
@@ -97,6 +98,11 @@ public class AuthService extends ServiceManager<Auth, Long> {
                     .email(createManager.getEmail())
                     .build();
             save(authManager);
+            authProducer.sendPasswordAfterManagerCreate(MailManagerPassword.builder()
+                    .mail(authManager.getEmail())
+                    .authid(authManager.getId())
+                    .password(authManager.getPassword())
+                    .build());
             return authManager.getId();
         }
         return 0L;

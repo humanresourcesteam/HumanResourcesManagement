@@ -6,4 +6,5 @@ include 'WorkerMicroService'
 include 'ConfigServer'
 include 'CompanyMicroService'
 include 'ApiGatewayService'
+include 'MailMicroService'
 

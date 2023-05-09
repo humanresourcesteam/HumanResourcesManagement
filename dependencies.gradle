@@ -30,5 +30,6 @@ ext {
             swaggerui                  : "org.springdoc:springdoc-openapi-ui:$versions.swaggerui",
             jwt                        : "com.auth0:java-jwt:${versions.jwt}",
             springBootDataMongodb      : "org.springframework.boot:spring-boot-starter-data-mongodb:$versions.springBoot",
+            springBootMailSender       : "org.springframework.boot:spring-boot-starter-mail:$versions.springBoot",
     ]
 }
