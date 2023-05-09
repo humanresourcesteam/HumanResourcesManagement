@@ -23,7 +23,7 @@ public class ManagerController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<?> addNewManager(@RequestBody AddManagerRequestDto addManagerRequestDto) throws IOException {
+    public ResponseEntity<?> addNewManager(AddManagerRequestDto addManagerRequestDto) throws IOException {
         return ResponseEntity.ok(managerService.addNewManager(addManagerRequestDto));
     }
 

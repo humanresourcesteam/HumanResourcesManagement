@@ -12,10 +12,10 @@ public class WorkerConsumer {
 
     private final ManagerService managerService;
 
-    @RabbitListener(queues = "queue-worker-manager")
-    public void workerCompanyName(WorkerModel workerModel){
-        managerService.workerCompanyName(workerModel);
-    }
+//    @RabbitListener(queues = "queue-worker-manager")
+//    public void workerCompanyName(WorkerModel workerModel){
+//        managerService.workerCompanyName(workerModel);
+//    }
 
 
 }

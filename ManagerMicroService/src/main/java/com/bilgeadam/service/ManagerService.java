@@ -13,12 +13,13 @@ import com.bilgeadam.repository.IManagerRepository;
 import com.bilgeadam.repository.entity.Manager;
 import com.bilgeadam.utility.FileService;
 import com.bilgeadam.utility.ServiceManager;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ManagerService extends ServiceManager<Manager, String> {
@@ -42,12 +43,11 @@ public class ManagerService extends ServiceManager<Manager, String> {
                 .build());
         if (result == 0L) throw new ManagerException(EErrorType.AUTH_EMAIL_ERROR);
         else {
-            String fileName = fileService.decodeBase64(addManagerRequestDto.getImage());
             Manager manager = Manager.builder()
                     .address(addManagerRequestDto.getAddress())
                     .email(addManagerRequestDto.getEmail())
                     .firstName(addManagerRequestDto.getFirstName())
-                    .image(fileName)
+                    .image(imageUpload(addManagerRequestDto.getImage()))
                     .phone(addManagerRequestDto.getPhone())
                     .identificationNumber(addManagerRequestDto.getIdentificationNumber())
                     .dateOfEmployment(addManagerRequestDto.getDateOfEmployment())
@@ -105,4 +105,26 @@ public class ManagerService extends ServiceManager<Manager, String> {
 //        manager.get().
 //        return
 //    }
+
+    public String imageUpload(MultipartFile file) {
+        // Configure
+        Map config = new HashMap();
+        config.put("cloud_name", "doa04qdhh");
+        config.put("api_key", "261194321947226");
+        config.put("api_secret", "K5_9m33MSDBvu4MZuHhHWeFxNeA");
+        Cloudinary cloudinary = new Cloudinary(config);
+
+        try {
+            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            String url = (String) result.get("url");
+            System.out.println(url + " --------------------------");
+            return url;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+
 }

@@ -1,6 +1,8 @@
 package com.bilgeadam.dto.request;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -11,11 +13,12 @@ import java.time.LocalDate;
 @ToString
 public class AddManagerRequestDto {
 
-    String image;
+    MultipartFile image;
 
     String firstName;
     String surname;
     String email;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate dateOfEmployment;
 
     String address;
@@ -25,6 +28,6 @@ public class AddManagerRequestDto {
     String identificationNumber;
 
     String birthdayPlace;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate birthDate;
 }

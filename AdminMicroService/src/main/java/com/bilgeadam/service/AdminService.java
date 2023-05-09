@@ -109,7 +109,6 @@ public class AdminService extends ServiceManager<Admin, String> {
 
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
             if (updateRequestDto.getImage() != null) {
-
                 admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
             }
 
