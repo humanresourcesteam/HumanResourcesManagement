@@ -13,7 +13,7 @@ import java.util.List;
 import static com.bilgeadam.constant.EndPoints.*;
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(WORKER)
+@RequestMapping(API+VERSION+WORKERS)
 public class WorkerController {
 
     private final WorkerService workerService;

@@ -22,7 +22,7 @@ import java.util.List;
 import static com.bilgeadam.constant.EndPoints.*;
 
 @RestController
-@RequestMapping(AUTH)
+@RequestMapping(API+VERSION+AUTH)
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class AuthController {

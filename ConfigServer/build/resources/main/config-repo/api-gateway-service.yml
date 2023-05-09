@@ -16,7 +16,7 @@ spring:
               - POST
               - PUT
       default-filters:
-        - RewritePath= /(?<segment>.*), api/v1/$\{segment}
+        - RewritePath= /(?<segment>.*), /api/v1/$\{segment}
       routes:
         - id: auth-micro-service
           predicates:

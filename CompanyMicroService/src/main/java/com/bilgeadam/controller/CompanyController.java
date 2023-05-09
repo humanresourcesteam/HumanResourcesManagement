@@ -14,7 +14,7 @@ import java.util.List;
 import static com.bilgeadam.constant.EndPoints.*;
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(COMPANY)
+@RequestMapping(API+VERSION+COMPANY)
 @CrossOrigin("*")
 public class CompanyController {
 

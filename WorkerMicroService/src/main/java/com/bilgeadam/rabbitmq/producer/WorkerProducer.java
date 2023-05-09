@@ -12,7 +12,11 @@ public class WorkerProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public String  getNameWorkerFromManager(WorkerModel workerModel) {
-        return (String) rabbitTemplate.convertSendAndReceive("exchange-worker-manager", "key-worker-manager", workerModel);
+    public String getNameWorkerFromCompany(WorkerModel workerModel) {
+        System.out.println("producer");
+        return (String) rabbitTemplate.convertSendAndReceive("exchange-worker-company", "key-worker-company", workerModel);
+
     }
+
+
 }

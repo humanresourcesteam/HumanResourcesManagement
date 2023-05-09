@@ -10,26 +10,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    private String exchangeWorkerManager = "exchange-worker-manager";
+    private String exchangeWorkerCompany = "exchange-worker-company";
 
-    private String keyWorkerManager = "key-worker-manager";
+    private String keyWorkerCompany = "key-worker-company";
 
-    private String queueWorkerFromManager = "queue-worker-manager";
+    private String queueWorkerFromCompany = "queue-worker-company";
 
 
     @Bean
-    DirectExchange directExchangeWorkerManager() {
-        return new DirectExchange(exchangeWorkerManager);
+    DirectExchange directExchangeWorkerCompany() {
+        return new DirectExchange(exchangeWorkerCompany);
     }
 
     @Bean
-    Queue queueWorkerManager() {
-        return new Queue(queueWorkerFromManager);
+    Queue queueWorkerCompany() {
+        return new Queue(queueWorkerFromCompany);
     }
 
     @Bean
-    Binding bindingWorkerManager(DirectExchange directExchangeWorkerManager, Queue queueWorkerManager) {
-        return BindingBuilder.bind(queueWorkerManager).to(directExchangeWorkerManager).with(keyWorkerManager);
+    Binding bindingWorkerCompany(DirectExchange directExchangeWorkerCompany, Queue queueWorkerCompany) {
+        return BindingBuilder.bind(queueWorkerCompany).to(directExchangeWorkerCompany).with(keyWorkerCompany);
     }
 
 }

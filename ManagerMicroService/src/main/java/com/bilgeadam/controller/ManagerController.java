@@ -7,7 +7,7 @@ import com.bilgeadam.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import static com.bilgeadam.constant.EndPoints.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import static com.bilgeadam.constant.EndPoints.MANAGER;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(MANAGER)
+@RequestMapping(API+VERSION+MANAGER)
 @CrossOrigin("*")
 public class ManagerController {
 

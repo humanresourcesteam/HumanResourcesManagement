@@ -7,5 +7,5 @@ buildscript {
 dependencies {
     implementation libs.sprinBootRabbitMQ
     implementation libs.springBootDataMongodb
-    implementation project(path: ':ManagerMicroService')
+
 }
