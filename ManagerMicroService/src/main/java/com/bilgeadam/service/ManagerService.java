@@ -7,7 +7,6 @@ import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.exception.ManagerException;
 import com.bilgeadam.mapper.IManagerMapper;
 import com.bilgeadam.rabbitmq.model.CreateManager;
-import com.bilgeadam.rabbitmq.model.WorkerModel;
 import com.bilgeadam.rabbitmq.producer.ManagerProducer;
 import com.bilgeadam.repository.IManagerRepository;
 import com.bilgeadam.repository.entity.Manager;
@@ -74,7 +73,6 @@ public class ManagerService extends ServiceManager<Manager, String> {
                     .image(x.getImage())
                     .email(x.getEmail())
                     .phone(x.getPhone())
-
                     .build());
         });
         return sumamryInfoManagers;

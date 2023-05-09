@@ -6,6 +6,7 @@ import com.bilgeadam.dto.response.SummaryInfoCompany;
 import com.bilgeadam.exception.CompanyException;
 import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.mapper.ICompanyMapper;
+import com.bilgeadam.rabbitmq.model.WorkerModel;
 import com.bilgeadam.repository.ICompanyRepository;
 import com.bilgeadam.repository.entity.Company;
 import com.bilgeadam.utility.FileService;
@@ -94,6 +95,7 @@ public class CompanyService extends ServiceManager<Company,String > {
                             .name(x.getName())
                             .email(x.getEmail())
                     .build());
+            System.out.println(x.getName());
         });
         return summaryInfoCompanies;
     }
@@ -113,4 +115,10 @@ public class CompanyService extends ServiceManager<Company,String > {
     }
 
 
+    public String  workerCompanyName(WorkerModel workerModel) {
+        System.out.println("selam");
+        Optional<Company> company = companyRepository.findById(workerModel.getId());
+        System.out.println(company.get().getName());
+        return company.get().getName();
+    }
 }

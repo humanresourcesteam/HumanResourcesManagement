@@ -5,7 +5,7 @@ public class EndPoints {
     public static final String VERSION = "/v1";
 
     public static final String API = "/api";
-    public static final String WORKER = "/worker";
+    public static final String WORKERS = "/workers";
 
 
     public static final String SAVE = "/save";

@@ -22,18 +22,18 @@ import java.util.Optional;
 @Service
 public class WorkerService extends ServiceManager<Worker,String > {
 
-    private final IWorkerRepository repository;
+    private final IWorkerRepository workerRepository;
 
     private final WorkerProducer workerProducer;
 
-    public WorkerService(IWorkerRepository repository, WorkerProducer workerProducer){
-        super(repository);
-        this.repository=repository;
+    public WorkerService(IWorkerRepository workerRepository, WorkerProducer workerProducer){
+        super(workerRepository);
+        this.workerRepository=workerRepository;
         this.workerProducer = workerProducer;
     }
 
     public Boolean addWorker(AddWorkerRequestDto workerRequestDto) {
-        Optional<Worker>workerOptional = repository.findOptionalByIdentificationNumber(workerRequestDto.getIdentificationNumber());
+        Optional<Worker>workerOptional = workerRepository.findOptionalByIdentificationNumber(workerRequestDto.getIdentificationNumber());
         if (workerOptional.isPresent()) throw new WorkerException(EErrorType.WORKER_HAS_BEEN);
 
         // isterlere göre şekillenecek...
@@ -42,19 +42,17 @@ public class WorkerService extends ServiceManager<Worker,String > {
 
 
     public GetAllWorker getAllWorker(String id) {
-        Optional<Worker>workerOptional = repository.findById(id);
+        Optional<Worker>workerOptional = workerRepository.findById(id);
         return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
     }
 
 
     public List<WorkerListDto> workerList(String id) {
         List<WorkerListDto>workerList = new ArrayList<>();
-        // manager id den bir liste olustur
-        //id olustugunda
-        String companyName = workerProducer.getNameWorkerFromManager(WorkerModel.builder()
-                        .id(repository.findOptionalByManagerid(id).get().getCompanyid())
+        String companyName = workerProducer.getNameWorkerFromCompany(WorkerModel.builder()
+                        .id(workerRepository.findOptionalByCompanyid(id).get().getCompanyid())
                 .build());
-        repository.findAll().forEach(x->{
+        workerRepository.findAll().forEach(x->{
             workerList.add(WorkerListDto.builder()
                             .name(x.getName())
                             .email(x.getEmail())
