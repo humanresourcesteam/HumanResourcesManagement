@@ -6,6 +6,7 @@ import com.bilgeadam.dto.response.SummaryInfoCompany;
 import com.bilgeadam.exception.CompanyException;
 import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.mapper.ICompanyMapper;
+import com.bilgeadam.rabbitmq.model.CompanyName;
 import com.bilgeadam.rabbitmq.model.WorkerModel;
 import com.bilgeadam.repository.ICompanyRepository;
 import com.bilgeadam.repository.entity.Company;
@@ -23,7 +24,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
-public class CompanyService extends ServiceManager<Company,String > {
+public class CompanyService extends ServiceManager<Company, String> {
 
     private final ICompanyRepository companyRepository;
 
@@ -31,7 +32,7 @@ public class CompanyService extends ServiceManager<Company,String > {
 
     private final FileService fileService;
 
-    public CompanyService(ICompanyRepository companyRepository, JwtTokenManager jwtTokenManager,FileService fileService) {
+    public CompanyService(ICompanyRepository companyRepository, JwtTokenManager jwtTokenManager, FileService fileService) {
         super(companyRepository);
         this.companyRepository = companyRepository;
         this.jwtTokenManager = jwtTokenManager;
@@ -58,25 +59,25 @@ public class CompanyService extends ServiceManager<Company,String > {
     }
 
 
-    public boolean  addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
+    public boolean addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
         Optional<Company> companyOptional = companyRepository.findOptionalByCentralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem());
         if (companyOptional.isPresent()) throw new CompanyException(EErrorType.COMPANY_HAS_BEEN);
         else {
             Company company = Company.builder()
                     .centralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem())
                     .name(addCompanyRequestDto.getName())
-                   .contractEndYear(addCompanyRequestDto.getContractEndYear())
+                    .contractEndYear(addCompanyRequestDto.getContractEndYear())
                     .phone(addCompanyRequestDto.getPhone())
                     .image(imageUpload(addCompanyRequestDto.getImage()))
                     .address(addCompanyRequestDto.getAddress())
                     .taxNumber(addCompanyRequestDto.getTaxNumber())
                     .taxOffice(addCompanyRequestDto.getTaxOffice())
-                     .contractStartYear(addCompanyRequestDto.getContractStartYear())
+                    .contractStartYear(addCompanyRequestDto.getContractStartYear())
                     .numberOfWorkers(addCompanyRequestDto.getNumberOfWorkers())
                     .status(addCompanyRequestDto.getStatus())
                     .title(addCompanyRequestDto.getTitle())
                     .email(addCompanyRequestDto.getEmail())
-                   .yearOfEstablishment(addCompanyRequestDto.getYearOfEstablishment())
+                    .yearOfEstablishment(addCompanyRequestDto.getYearOfEstablishment())
                     .build();
             save(company);
             return true;
@@ -86,14 +87,14 @@ public class CompanyService extends ServiceManager<Company,String > {
 
     public List<SummaryInfoCompany> getAllCompanySummaryInfo() {
         List<SummaryInfoCompany> summaryInfoCompanies = new ArrayList<>();
-        companyRepository.findAll().forEach(x->{
+        companyRepository.findAll().forEach(x -> {
             summaryInfoCompanies.add(SummaryInfoCompany.builder()
-                            .id(x.getId())
-                            .address(x.getAddress())
-                            .title(x.getTitle())
-                            .phone(x.getPhone())
-                            .name(x.getName())
-                            .email(x.getEmail())
+                    .id(x.getId())
+                    .address(x.getAddress())
+                    .title(x.getTitle())
+                    .phone(x.getPhone())
+                    .name(x.getName())
+                    .email(x.getEmail())
                     .build());
             System.out.println(x.getName());
         });
@@ -115,10 +116,17 @@ public class CompanyService extends ServiceManager<Company,String > {
     }
 
 
-    public String  workerCompanyName(WorkerModel workerModel) {
+    public String workerCompanyName(WorkerModel workerModel) {
         System.out.println("selam");
         Optional<Company> company = companyRepository.findById(workerModel.getId());
         System.out.println(company.get().getName());
         return company.get().getName();
+    }
+
+    public String companyIdForManager(CompanyName companyName) {
+
+        Optional<Company> company = companyRepository.findOptionalByName(companyName.getCompanyName());
+        return company.get().getId();
+
     }
 }

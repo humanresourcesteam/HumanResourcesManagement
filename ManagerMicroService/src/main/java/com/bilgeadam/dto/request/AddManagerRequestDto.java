@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class AddManagerRequestDto {
 
     MultipartFile image;
-
+String companyName;
     String firstName;
     String surname;
     String email;

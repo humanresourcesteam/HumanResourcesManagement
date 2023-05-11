@@ -15,8 +15,26 @@ public class RabbitConfig {
     private String keyWorkerCompany = "key-worker-company";
 
     private String queueWorkerFromCompany = "queue-worker-company";
+    private String exchangeManagerCompany = "exchange-manager-company";
 
+    private String keyManagerCompany = "exchange-manager-company";
 
+    private String queueCompanyManager = "queue-manager-company";
+
+    @Bean
+    DirectExchange directExchangeCompanyManager() {
+        return new DirectExchange(exchangeManagerCompany);
+    }
+
+    @Bean
+    Queue queueManagerCompany() {
+        return new Queue(queueCompanyManager);
+    }
+
+    @Bean
+    Binding bindingCompanyManager(DirectExchange directExchangeCompanyManager, Queue queueManagerCompany) {
+        return BindingBuilder.bind(queueManagerCompany).to(directExchangeCompanyManager).with(keyManagerCompany);
+    }
     @Bean
     DirectExchange directExchangeWorkerCompany() {
         return new DirectExchange(exchangeWorkerCompany);

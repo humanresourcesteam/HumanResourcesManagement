@@ -13,4 +13,8 @@ public interface IManagerRepository extends MongoRepository<Manager,String> {
     Optional<Manager> findOptionalByIdentificationNumber(String idNumber);
 
     List<Manager> findTop5ByOrderByCreatedateDesc();
+
+    Optional<Manager> findOptionalByAuthid(Long authid);
+
+    Optional<Manager> findOptionalByCompanyid(String id);
 }

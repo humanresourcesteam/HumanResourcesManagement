@@ -1,8 +1,10 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.AddManagerRequestDto;
+import com.bilgeadam.dto.request.BaseRequestDto;
 import com.bilgeadam.dto.response.GetAllInfoManager;
 import com.bilgeadam.dto.response.SumamryInfoManager;
+import com.bilgeadam.dto.response.SummarForCompany;
 import com.bilgeadam.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,21 @@ public class ManagerController {
     @GetMapping("/find-five-manager")
     public ResponseEntity<?> getTop5Manager(){
         return ResponseEntity.ok(managerService.getTop5Manager());
+    }
+
+
+    @GetMapping("/get-image")
+    public ResponseEntity<String> getImageForManager(BaseRequestDto baseRequestDto){
+        return ResponseEntity.ok(managerService.getImageForManager(baseRequestDto));
+    }
+    @GetMapping("/manager-info")
+    public ResponseEntity<GetAllInfoManager> getInfoForManager(BaseRequestDto baseRequestDto){
+        return ResponseEntity.ok(managerService.getInfoForManager(baseRequestDto));
+    }
+
+    @GetMapping("/manager-company-info/{companyId}")
+    public ResponseEntity<SummarForCompany> getSummaryForCompany(@PathVariable String companyId){
+        return ResponseEntity.ok(managerService.summaryForCompany(companyId));
     }
 
 

@@ -16,6 +16,28 @@ public class RabbitConfig {
     private String keyManagerAddAuth = "exchange-manager-auth";
 
     private String queueAddAuthFromManager = "queue-auth-manager-add";
+    private String exchangeManagerCompany = "exchange-manager-company";
+
+    private String keyManagerCompany = "exchange-manager-company";
+
+    private String queueCompanyManager = "queue-manager-company";
+
+
+    @Bean
+    DirectExchange directExchangeCompanyManager() {
+        return new DirectExchange(exchangeManagerCompany);
+    }
+
+    @Bean
+    Queue queueManagerCompany() {
+        return new Queue(queueCompanyManager);
+    }
+
+    @Bean
+    Binding bindingCompanyManager(DirectExchange directExchangeCompanyManager, Queue queueManagerCompany) {
+        return BindingBuilder.bind(queueManagerCompany).to(directExchangeCompanyManager).with(keyManagerCompany);
+    }
+
 
 
     @Bean

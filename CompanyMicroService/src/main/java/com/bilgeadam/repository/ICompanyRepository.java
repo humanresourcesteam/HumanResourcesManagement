@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ICompanyRepository extends MongoRepository<Company,String > {
 
     Optional<Company> findOptionalByCentralRegistrySystem(String centralRegistrySystem);
+
+    Optional<Company> findOptionalByName(String companyName);
 }
