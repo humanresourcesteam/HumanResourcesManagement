@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @ToString
 public class GetAllInfoManager {
 
+    String companyid;
     String id;
     String image;
     Long authid;

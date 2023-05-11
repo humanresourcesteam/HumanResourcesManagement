@@ -41,6 +41,12 @@ public class ManagerService extends ServiceManager<Manager, String> {
     }
 
     public boolean addNewManager(AddManagerRequestDto addManagerRequestDto) throws IOException {
+        String companyId = managerProducer.companyIdForManager(CompanyName.builder()
+                .companyName(addManagerRequestDto.getCompanyName())
+                .build());
+        if (managerRepository.findOptionalByCompanyid(companyId).isPresent())
+            throw new ManagerException(EErrorType.MANAGER_HAS_BEEN_WITH_COMPANY);
+        else{
         Optional<Manager> managerOptional = managerRepository.findOptionalByIdentificationNumber(addManagerRequestDto.getIdentificationNumber());
         if (managerOptional.isPresent()) throw new ManagerException(EErrorType.MANAGER_HAS_BEEN);
         Long result = managerProducer.createAuthFromManager(CreateManager.builder()
@@ -48,12 +54,6 @@ public class ManagerService extends ServiceManager<Manager, String> {
                 .build());
         if (result == 0L) throw new ManagerException(EErrorType.AUTH_EMAIL_ERROR);
         else {
-
-            String companyId = managerProducer.companyIdForManager(CompanyName.builder()
-                    .companyName(addManagerRequestDto.getCompanyName())
-                    .build());
-
-
             Manager manager = Manager.builder()
                     .address(addManagerRequestDto.getAddress())
                     .email(addManagerRequestDto.getEmail())
@@ -64,14 +64,14 @@ public class ManagerService extends ServiceManager<Manager, String> {
                     .dateOfEmployment(addManagerRequestDto.getDateOfEmployment())
                     .surname(addManagerRequestDto.getSurname())
                     .companyid(companyId)
+                    .authid(result)
                     .birthdayPlace(addManagerRequestDto.getBirthdayPlace())
                     .birthDate(addManagerRequestDto.getBirthDate())
                     .build();
             save(manager);
             return true;
         }
-
-
+        }
     }
 
     public List<SumamryInfoManager> getAllManagerSummaryInfo() {

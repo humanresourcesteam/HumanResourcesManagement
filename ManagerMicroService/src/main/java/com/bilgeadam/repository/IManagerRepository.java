@@ -17,4 +17,6 @@ public interface IManagerRepository extends MongoRepository<Manager,String> {
     Optional<Manager> findOptionalByAuthid(Long authid);
 
     Optional<Manager> findOptionalByCompanyid(String id);
+
+
 }

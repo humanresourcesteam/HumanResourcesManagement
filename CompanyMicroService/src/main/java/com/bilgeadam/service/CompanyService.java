@@ -129,4 +129,11 @@ public class CompanyService extends ServiceManager<Company, String> {
         return company.get().getId();
 
     }
+
+    public String getCompanyName(String companyId) {
+        Optional<Company> company = companyRepository.findById(companyId);
+        return company.get().getName();
+    }
+
+
 }
