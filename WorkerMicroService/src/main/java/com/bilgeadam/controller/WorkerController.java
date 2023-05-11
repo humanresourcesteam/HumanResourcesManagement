@@ -2,6 +2,7 @@ package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.AddWorkerRequestDto;
 import com.bilgeadam.dto.response.GetAllWorker;
+import com.bilgeadam.dto.response.NewEmployeeSummary;
 import com.bilgeadam.dto.response.SummaryWorker;
 import com.bilgeadam.dto.response.WorkerListDto;
 import com.bilgeadam.service.WorkerService;
@@ -40,5 +41,9 @@ public class WorkerController {
         return ResponseEntity.ok(workerService.getAllWorkerForCompany(companyid));
     }
 
+    @GetMapping("/get-new-employee")
+    public ResponseEntity<List<NewEmployeeSummary>> getNewEmployee(){
+        return ResponseEntity.ok(workerService.newEmployeeSummary());
+    }
 
 }

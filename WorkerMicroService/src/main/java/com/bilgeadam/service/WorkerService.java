@@ -3,6 +3,7 @@ package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.AddWorkerRequestDto;
 import com.bilgeadam.dto.response.GetAllWorker;
+import com.bilgeadam.dto.response.NewEmployeeSummary;
 import com.bilgeadam.dto.response.SummaryWorker;
 import com.bilgeadam.dto.response.WorkerListDto;
 import com.bilgeadam.exception.EErrorType;
@@ -146,5 +147,19 @@ public class WorkerService extends ServiceManager<Worker, String> {
         });
 
         return summaryWorkers;
+    }
+
+    public List<NewEmployeeSummary> newEmployeeSummary() {
+
+        List<NewEmployeeSummary> newEmployeeSummaries = new ArrayList<>();
+        workerRepository.findTop7ByOrderByCreatedateDesc().forEach(x -> {
+            newEmployeeSummaries.add(NewEmployeeSummary.builder()
+                    .image(x.getImage())
+                    .name(x.getName())
+                    .occupation(x.getOccupation())
+                    .surname(x.getSurname())
+                    .build());
+        });
+        return newEmployeeSummaries;
     }
 }
