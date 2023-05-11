@@ -42,6 +42,30 @@ public class RabbitConfig {
     private String queueMailForManager = "queue-mail-for-maanager";
 
 
+
+    private String exchangeCreateWorkerForAuth = "exchange-worker-auth";
+
+    private String keyWorkerAuth = "key-worker-auth";
+
+    private String queueWorkerAuth = "queue-worker-auth";
+
+
+    @Bean
+    DirectExchange directExchangeWorkerAuth() {
+        return new DirectExchange(exchangeCreateWorkerForAuth);
+    }
+
+    @Bean
+    Queue queueWorkerAuth() {
+        return new Queue(queueWorkerAuth);
+    }
+
+    @Bean
+    Binding bindingWorkerAuth(DirectExchange directExchangeWorkerAuth, Queue queueWorkerAuth) {
+        return BindingBuilder.bind(queueWorkerAuth).to(directExchangeWorkerAuth).with(keyWorkerAuth);
+    }
+
+
     @Bean
     DirectExchange directExchangeMail() {
         return new DirectExchange(exchangeMail);

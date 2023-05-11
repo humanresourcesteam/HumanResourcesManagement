@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nonapi.io.github.classgraph.json.Id;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -40,7 +41,7 @@ public class Worker extends BaseEntity{
 
     String identificationNumber;
 
-    String dateOfEmployment;
+    LocalDate dateOfEmployment;
 
     String terminationDate;
 

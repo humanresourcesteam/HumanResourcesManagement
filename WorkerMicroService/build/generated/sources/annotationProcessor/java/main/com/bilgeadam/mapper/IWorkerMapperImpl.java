@@ -2,12 +2,13 @@ package com.bilgeadam.mapper;
 
 import com.bilgeadam.dto.response.GetAllWorker;
 import com.bilgeadam.repository.entity.Worker;
+import java.time.format.DateTimeFormatter;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-11T13:43:00+0300",
+    date = "2023-05-11T16:17:44+0300",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 17.0.4.1 (Oracle Corporation)"
 )
 @Component
@@ -30,7 +31,9 @@ public class IWorkerMapperImpl implements IWorkerMapper {
         getAllWorker.birthDate( worker.getBirthDate() );
         getAllWorker.birthPlace( worker.getBirthPlace() );
         getAllWorker.identificationNumber( worker.getIdentificationNumber() );
-        getAllWorker.dateOfEmployment( worker.getDateOfEmployment() );
+        if ( worker.getDateOfEmployment() != null ) {
+            getAllWorker.dateOfEmployment( DateTimeFormatter.ISO_LOCAL_DATE.format( worker.getDateOfEmployment() ) );
+        }
         getAllWorker.terminationDate( worker.getTerminationDate() );
         getAllWorker.activity( worker.getActivity() );
         getAllWorker.occupation( worker.getOccupation() );

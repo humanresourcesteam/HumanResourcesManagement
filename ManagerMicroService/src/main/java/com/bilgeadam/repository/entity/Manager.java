@@ -19,7 +19,6 @@ public class Manager extends BaseEntity{
     String id;
     String image;
     Long authid;
-
     String companyid;
     String firstName;
     String surname;

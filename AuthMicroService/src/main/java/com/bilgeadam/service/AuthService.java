@@ -7,10 +7,7 @@ import com.bilgeadam.dto.response.NewEmployeeResponseDto;
 import com.bilgeadam.exception.AuthException;
 import com.bilgeadam.exception.EErrorType;
 import com.bilgeadam.mapper.IAuthMapper;
-import com.bilgeadam.rabbitmq.model.CreateManager;
-import com.bilgeadam.rabbitmq.model.CreateModel;
-import com.bilgeadam.rabbitmq.model.MailManagerPassword;
-import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
+import com.bilgeadam.rabbitmq.model.*;
 import com.bilgeadam.rabbitmq.producer.AuthProducer;
 import com.bilgeadam.repository.IAuthRepository;
 import com.bilgeadam.repository.entity.Auth;
@@ -107,5 +104,24 @@ public class AuthService extends ServiceManager<Auth, Long> {
         }
         return 0L;
 
+    }
+
+    public Long createWorker(CreateWorker createWorker) {
+        Optional<Auth> auth = repository.findOptionalByEmail(createWorker.getEmail());
+        if (auth.isEmpty()) {
+            Auth authWorker = Auth.builder()
+                    .email(createWorker.getEmail())
+                    .password(UUID.randomUUID().toString())
+                    .roles(ERole.EMPLOYEE)
+                    .build();
+            save(authWorker);
+            authProducer.sendPasswordAfterManagerCreate(MailManagerPassword.builder()
+                    .mail(authWorker.getEmail())
+                    .authid(authWorker.getId())
+                    .password(authWorker.getPassword())
+                    .build());
+            return authWorker.getId();
+        }
+        return 0L;
     }
 }

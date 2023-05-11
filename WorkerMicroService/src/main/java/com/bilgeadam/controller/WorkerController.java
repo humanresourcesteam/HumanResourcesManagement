@@ -2,6 +2,7 @@ package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.AddWorkerRequestDto;
 import com.bilgeadam.dto.response.GetAllWorker;
+import com.bilgeadam.dto.response.SummaryWorker;
 import com.bilgeadam.dto.response.WorkerListDto;
 import com.bilgeadam.service.WorkerService;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,13 @@ import static com.bilgeadam.constant.EndPoints.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(API+VERSION+WORKERS)
+@CrossOrigin("*")
 public class WorkerController {
 
     private final WorkerService workerService;
 
     @PostMapping("/addworker")
-    public ResponseEntity<Boolean>addWorker(@RequestBody AddWorkerRequestDto workerRequestDto){
+    public ResponseEntity<Boolean>addWorker(AddWorkerRequestDto workerRequestDto){
         return ResponseEntity.ok(workerService.addWorker(workerRequestDto));
     }
 
@@ -32,4 +34,11 @@ public class WorkerController {
     public ResponseEntity<List<WorkerListDto>>workerList(@PathVariable String id){
         return ResponseEntity.ok(workerService.workerList(id));
     }
+
+    @GetMapping("/get-all-employee-for-company/{companyid}")
+    public ResponseEntity<List<SummaryWorker>> getAllWorkerForCompany(@PathVariable String companyid){
+        return ResponseEntity.ok(workerService.getAllWorkerForCompany(companyid));
+    }
+
+
 }

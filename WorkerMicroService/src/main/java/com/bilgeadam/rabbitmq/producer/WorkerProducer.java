@@ -1,6 +1,7 @@
 package com.bilgeadam.rabbitmq.producer;
 
 
+import com.bilgeadam.rabbitmq.model.CreateWorker;
 import com.bilgeadam.rabbitmq.model.WorkerModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,6 +17,10 @@ public class WorkerProducer {
         System.out.println("producer");
         return (String) rabbitTemplate.convertSendAndReceive("exchange-worker-company", "key-worker-company", workerModel);
 
+    }
+
+    public Long createAuth(CreateWorker createWorker){
+        return (Long) rabbitTemplate.convertSendAndReceive("exchange-worker-auth","key-worker-auth",createWorker);
     }
 
 

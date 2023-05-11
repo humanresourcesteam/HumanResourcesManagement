@@ -2,6 +2,8 @@ package com.bilgeadam.dto.request;
 
 import com.bilgeadam.repository.enums.Activity;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -16,7 +18,7 @@ public class AddWorkerRequestDto {
 
     String companyid;
 
-    String image;
+    MultipartFile image;
 
     String name;
 
@@ -25,16 +27,14 @@ public class AddWorkerRequestDto {
     String surname;
 
     String secondSurname;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate birthDate;
 
     String birthPlace;
 
     String identificationNumber;
-
-    String dateOfEmployment;
-
-    String terminationDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    LocalDate dateOfEmployment;
 
     Activity activity;
 
