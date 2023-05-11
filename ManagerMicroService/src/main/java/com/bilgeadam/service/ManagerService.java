@@ -1,6 +1,7 @@
 package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.AddManagerRequestDto;
+import com.bilgeadam.dto.request.BaseRequestDto;
 import com.bilgeadam.dto.response.GetAllInfoManager;
 import com.bilgeadam.dto.response.SumamryInfoManager;
 import com.bilgeadam.exception.EErrorType;
@@ -11,6 +12,7 @@ import com.bilgeadam.rabbitmq.producer.ManagerProducer;
 import com.bilgeadam.repository.IManagerRepository;
 import com.bilgeadam.repository.entity.Manager;
 import com.bilgeadam.utility.FileService;
+import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -26,12 +28,14 @@ public class ManagerService extends ServiceManager<Manager, String> {
     private final IManagerRepository managerRepository;
     private final ManagerProducer managerProducer;
     private final FileService fileService;
+    private final JwtTokenManager jwtTokenManager;
 
-    public ManagerService(IManagerRepository managerRepository, ManagerProducer managerProducer, FileService fileService) {
+    public ManagerService(IManagerRepository managerRepository, ManagerProducer managerProducer, FileService fileService, JwtTokenManager jwtTokenManager) {
         super(managerRepository);
         this.managerRepository = managerRepository;
         this.managerProducer = managerProducer;
         this.fileService = fileService;
+        this.jwtTokenManager = jwtTokenManager;
     }
 
     public boolean addNewManager(AddManagerRequestDto addManagerRequestDto) throws IOException {
@@ -88,8 +92,8 @@ public class ManagerService extends ServiceManager<Manager, String> {
         List<SumamryInfoManager> sumamryInfoManagers = new ArrayList<>();
         managerRepository.findTop5ByOrderByCreatedateDesc().forEach(x -> {
             sumamryInfoManagers.add(SumamryInfoManager.builder()
-                            .id(x.getId())
-                            .image(x.getImage())
+                    .id(x.getId())
+                    .image(x.getImage())
                     .firstName(x.getFirstName())
                     .surname(x.getSurname())
                     .email(x.getEmail())
@@ -124,5 +128,17 @@ public class ManagerService extends ServiceManager<Manager, String> {
     }
 
 
+    public String getImageForManager(BaseRequestDto baseRequestDto) {
+        Optional<Long> authId = jwtTokenManager.getIdFromToken(baseRequestDto.getToken());
+        if (authId.isEmpty()) throw new ManagerException(EErrorType.INVALID_TOKEN);
+        Optional<Manager> manager = managerRepository.findOptionalByAuthid(authId.get());
+        return manager.get().getImage();
+    }
 
+    public GetAllInfoManager getInfoForManager(BaseRequestDto baseRequestDto) {
+        Optional<Long> authId = jwtTokenManager.getIdFromToken(baseRequestDto.getToken());
+        if (authId.isEmpty()) throw new ManagerException(EErrorType.INVALID_TOKEN);
+        Optional<Manager> manager = managerRepository.findOptionalByAuthid(authId.get());
+        return IManagerMapper.INSTANCE.froInfoManager(manager.get());
+    }
 }
