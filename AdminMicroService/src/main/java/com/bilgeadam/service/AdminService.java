@@ -105,13 +105,10 @@ public class AdminService extends ServiceManager<Admin, String> {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
-
-
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
             if (updateRequestDto.getImage() != null) {
                 admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
             }
-
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
         //    admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
@@ -128,7 +125,6 @@ public class AdminService extends ServiceManager<Admin, String> {
 
                     admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
                }
-
                 admin.get().setEmail(updateRequestDto.getEmail());
                 admin.get().setSurname(updateRequestDto.getSurname());
         //        admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
@@ -137,7 +133,6 @@ public class AdminService extends ServiceManager<Admin, String> {
                 update(admin.get());
                 return true;
             }
-
         }
         return false;
     }

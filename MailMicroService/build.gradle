@@ -9,6 +9,7 @@ dependencies {
     implementation libs.springBootStarterDataJpa
     implementation libs.springBootMailSender
     implementation libs.postgreSql
+    implementation libs.springCloudConfigClient
 
 
 }

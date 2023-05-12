@@ -68,3 +68,13 @@ spring:
               args:
                 name: auth
                 fallbackuri: forward:/fallbackworker
+        - id: mail-micro-service
+          predicates:
+            - Path=/worker/**
+          uri: http://localhost:8082
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackmail

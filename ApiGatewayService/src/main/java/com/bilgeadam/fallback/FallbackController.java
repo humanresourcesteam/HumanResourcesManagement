@@ -34,5 +34,9 @@ public class FallbackController {
         return ResponseEntity.ok("Worker Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
     }
 
+    @GetMapping("/fallbackmail")
+    public ResponseEntity<String>fallbackmail(){
+        return ResponseEntity.ok("Mail Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
+    }
 
 }

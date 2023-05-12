@@ -8,4 +8,5 @@ dependencies {
     implementation libs.springCloudGateway
     implementation libs.springCloudCircuit
     implementation libs.springCloudCircuitReactor
+    implementation libs.springCloudConfigClient
 }
