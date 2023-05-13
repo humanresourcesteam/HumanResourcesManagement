@@ -10,13 +10,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AdminMicroService" />
+            <option value="$PROJECT_DIR$/AdvanceMicroService" />
             <option value="$PROJECT_DIR$/ApiGatewayService" />
             <option value="$PROJECT_DIR$/AuthMicroService" />
             <option value="$PROJECT_DIR$/CompanyMicroService" />
             <option value="$PROJECT_DIR$/ConfigServer" />
             <option value="$PROJECT_DIR$/ConfigServerGit" />
+            <option value="$PROJECT_DIR$/ExpenseMicroService" />
             <option value="$PROJECT_DIR$/MailMicroService" />
             <option value="$PROJECT_DIR$/ManagerMicroService" />
+            <option value="$PROJECT_DIR$/PermissionMicroService" />
             <option value="$PROJECT_DIR$/WorkerMicroService" />
           </set>
         </option>

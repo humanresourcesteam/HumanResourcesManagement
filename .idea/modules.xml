@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdminMicroService/HumanResourcesManagement.AdminMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdminMicroService/HumanResourcesManagement.AdminMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ApiGatewayService/HumanResourcesManagement.ApiGatewayService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ApiGatewayService/HumanResourcesManagement.ApiGatewayService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CompanyMicroService/HumanResourcesManagement.CompanyMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CompanyMicroService/HumanResourcesManagement.CompanyMicroService.main.iml" />
@@ -10,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ConfigServerGit/HumanResourcesManagement.ConfigServerGit.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ConfigServerGit/HumanResourcesManagement.ConfigServerGit.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MailMicroService/HumanResourcesManagement.MailMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MailMicroService/HumanResourcesManagement.MailMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ManagerMicroService/HumanResourcesManagement.ManagerMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ManagerMicroService/HumanResourcesManagement.ManagerMicroService.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PermissionMicroService/HumanResourcesManagement.PermissionMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PermissionMicroService/HumanResourcesManagement.PermissionMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WorkerMicroService/HumanResourcesManagement.WorkerMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WorkerMicroService/HumanResourcesManagement.WorkerMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdminMicroService/com.bilgeadam.HumanResourcesManagement.AdminMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdminMicroService/com.bilgeadam.HumanResourcesManagement.AdminMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ApiGatewayService/com.bilgeadam.HumanResourcesManagement.ApiGatewayService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ApiGatewayService/com.bilgeadam.HumanResourcesManagement.ApiGatewayService.main.iml" />

@@ -39,4 +39,19 @@ public class FallbackController {
         return ResponseEntity.ok("Mail Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
     }
 
+    @GetMapping("/fallbackpermission")
+    public ResponseEntity<String>fallbackpermission(){
+        return ResponseEntity.ok("Permission Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
+    }
+
+    @GetMapping("/fallbackexpense")
+    public ResponseEntity<String>fallbackexpense(){
+        return ResponseEntity.ok("Expense Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
+    }
+
+    @GetMapping("/fallbackadvance")
+    public ResponseEntity<String>fallbackadvance(){
+        return ResponseEntity.ok("Advance Service geçici bir süre devre dışıdır lütfen daha sonra tekrar deneyiniz");
+    }
+
 }

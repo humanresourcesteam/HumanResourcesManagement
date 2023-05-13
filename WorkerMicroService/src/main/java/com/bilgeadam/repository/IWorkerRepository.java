@@ -19,4 +19,5 @@ public interface IWorkerRepository extends MongoRepository<Worker,String> {
     List<Worker> findTop7ByOrderByCreatedateDesc();
 
 
+    Optional<Worker> findOptionalById(String id);
 }
