@@ -1,0 +1,18 @@
+server:
+  port: 9098
+spring:
+  rabbitmq:
+    host: localhost
+    username: user
+    password: user
+    port: 5672
+  data:
+    mongodb:
+      host: localhost
+      port: 29003
+      username: "bilgeadam"
+      password: "advanceservice"
+      database: "advanceDB"
+
+jwt:
+  secretKey: ${PASSWORD}

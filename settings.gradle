@@ -8,4 +8,7 @@ include 'CompanyMicroService'
 include 'ApiGatewayService'
 include 'MailMicroService'
 include 'ConfigServerGit'
+include 'PermissionMicroService'
+include 'ExpenseMicroService'
+include 'AdvanceMicroService'
 

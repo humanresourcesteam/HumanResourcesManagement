@@ -24,6 +24,8 @@ public class RabbitConfig {
     private String queueWorkerAuth = "queue-worker-auth";
 
 
+
+
     @Bean
     DirectExchange directExchangeWorkerAuth() {
         return new DirectExchange(exchangeCreateWorkerForAuth);
