@@ -86,7 +86,7 @@ public class PermissionService extends ServiceManager<Permission,String > {
     public List<ApprovalStatusResponse> getApprovalStatus() {
         List<ApprovalStatusResponse>approvalStatusResponses = new ArrayList<>();
 
-        permissionRepository.findOptionalByOrderApprovalStatusDesc(PENDING_APPROVAL).forEach(x->{
+        permissionRepository.findOptionalByOrderApprovalStatusDesc().forEach(x->{
             approvalStatusResponses.add(ApprovalStatusResponse.builder()
                             .workerid(x.getWorkerid())
                             .dateOfRequest(x.getDateOfRequest())
@@ -114,7 +114,7 @@ public class PermissionService extends ServiceManager<Permission,String > {
     public List<ApprovalStatusResponse> getApprovalStatusApproved() {
         List<ApprovalStatusResponse>approvalStatusResponses = new ArrayList<>();
 
-        permissionRepository.findOptionalByApprovalStatus(APPROVED).forEach(x->{
+        permissionRepository.findOptionalByApprovalStatus().forEach(x->{
             approvalStatusResponses.add(ApprovalStatusResponse.builder()
                     .workerid(x.getWorkerid())
                     .dateOfRequest(x.getDateOfRequest())

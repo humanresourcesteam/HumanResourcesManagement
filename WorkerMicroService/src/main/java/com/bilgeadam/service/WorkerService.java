@@ -58,6 +58,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .activity(Activity.WORKING)
                         .occupation(workerRequestDto.getOccupation())
                         .email(workerRequestDto.getEmail())
+                        .authid(result)
                         .address(workerRequestDto.getAddress())
                         .companyPhone(workerRequestDto.getCompanyPhone())
                         .build();
@@ -78,6 +79,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .activity(Activity.WORKING)
                         .occupation(workerRequestDto.getOccupation())
                         .email(workerRequestDto.getEmail())
+                        .authid(result)
                         .address(workerRequestDto.getAddress())
                         .companyPhone(workerRequestDto.getCompanyPhone())
                         .build();

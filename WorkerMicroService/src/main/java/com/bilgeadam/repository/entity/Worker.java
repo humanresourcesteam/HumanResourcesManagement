@@ -22,7 +22,7 @@ public class Worker extends BaseEntity{
 
     @Id
     String id;
-
+    Long authid;
     String companyid;
 
     String managerid;

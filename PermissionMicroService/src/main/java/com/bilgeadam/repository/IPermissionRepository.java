@@ -13,8 +13,8 @@ import java.util.Optional;
 public interface IPermissionRepository extends MongoRepository<Permission,String > {
     Optional<Permission> findOptionalByManagerid(String managerid);
 
-    List<Permission> findOptionalByOrderApprovalStatusDesc(ApprovalStatus approvalStatus);
+    List<Permission> findOptionalByOrderApprovalStatusDesc();
 
-    List<Permission> findOptionalByApprovalStatus(ApprovalStatus approvalStatus);
+    List<Permission> findOptionalByApprovalStatus();
 
 }
