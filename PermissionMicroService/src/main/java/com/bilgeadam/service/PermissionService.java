@@ -94,6 +94,7 @@ public class PermissionService extends ServiceManager<Permission,String > {
                             .numberOfDays(x.getNumberOfDays())
                             .startDate(x.getStartDate())
                             .endDate(x.getEndDate())
+                            .approvalStatus(x.getApprovalStatus())
                             .numberOfDays(x.getNumberOfDays())
                     .build());
         });
@@ -117,6 +118,7 @@ public class PermissionService extends ServiceManager<Permission,String > {
             approvalStatusResponses.add(ApprovalStatusResponse.builder()
                     .workerid(x.getWorkerid())
                     .dateOfRequest(x.getDateOfRequest())
+                    .approvalStatus(x.getApprovalStatus())
                     .typeOfPermit(x.getTypeOfPermit())
                     .numberOfDays(x.getNumberOfDays())
                     .startDate(x.getStartDate())
