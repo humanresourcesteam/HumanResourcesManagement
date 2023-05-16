@@ -1,9 +1,16 @@
 package com.bilgeadam.repository;
 
 import com.bilgeadam.repository.entity.Advance;
+import com.bilgeadam.repository.enums.ApprovalStatus;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface IAdvanceRepository extends MongoRepository<Advance,String > {
+    Optional<Advance> findOptionalByManagerid(String managerid);
+
+    List<Advance> findOptionalByOrderApprovalStatusDesc(ApprovalStatus approvalStatus);
 }

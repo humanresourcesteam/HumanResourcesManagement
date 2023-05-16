@@ -1,4 +1,4 @@
-package com.bilgeadam.repository.entity;
+package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.AdvanceAmount;
 import com.bilgeadam.repository.enums.AdvanceRequestType;
@@ -8,21 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import nonapi.io.github.classgraph.json.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SuperBuilder
-@Document
-public class Advance extends BaseEntity{
-    @Id
-    String id;
+@Builder
+public class WorkerAdvanceForManager {
 
     String managerid;
 
@@ -31,7 +24,7 @@ public class Advance extends BaseEntity{
     String nameOfTheRequester;
 
     String surnameOfTheRequester;
-
+    ApprovalStatus approvalStatus;
     LocalDate dateOfRequest;
 
     String description;
@@ -41,8 +34,6 @@ public class Advance extends BaseEntity{
     AdvanceAmount advanceAmount;
 
     ECurrency currency;
-
     AdvanceRequestType advanceRequestType;
 
-    ApprovalStatus approvalStatus;
 }
