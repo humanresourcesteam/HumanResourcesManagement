@@ -1,33 +1,24 @@
-package com.bilgeadam.repository.entity;
+package com.bilgeadam.dto.request;
 
-import com.bilgeadam.repository.enums.ApprovalStatus;
 import com.bilgeadam.repository.enums.ECurrency;
 import com.bilgeadam.repository.enums.ExpenditureType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import nonapi.io.github.classgraph.json.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SuperBuilder
-@Document
-public class Expense extends BaseEntity{
-
-    @Id
-    String id;
-
-    String workerid;
+@Builder
+public class CreateExpenseRequestDto {
 
     String managerid;
+
+    String workerid;
 
     ExpenditureType expenditureType;
 
@@ -37,7 +28,5 @@ public class Expense extends BaseEntity{
 
     LocalDate replyDate;
 
-    ApprovalStatus approvalStatus;
     String  file;
-
 }
