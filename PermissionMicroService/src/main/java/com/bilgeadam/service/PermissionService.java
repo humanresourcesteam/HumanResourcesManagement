@@ -99,11 +99,8 @@ public class PermissionService extends ServiceManager<Permission, String> {
                     .id(x.getId())
                     .build());
         });
-
-
         return workers;
     }
-
     public List<WorkerPermissionForManager> getPermissionForManager(String managerid) {
         List<Permission> permissions = permissionRepository.findOptionalByManagerid(managerid);
         List<WorkerPermissionForManager> managers = new ArrayList<>();
@@ -125,13 +122,11 @@ public class PermissionService extends ServiceManager<Permission, String> {
     }
 
     public Boolean updateStatus(UpdateStatusRequestDto updateStatusRequestDto) {
-
         Optional<Permission> permission = findById(updateStatusRequestDto.getId());
         permission.get().setApprovalStatus(updateStatusRequestDto.getStatus());
         permission.get().setReplyDate(LocalDate.now());
         update(permission.get());
         return true;
-
     }
 
 

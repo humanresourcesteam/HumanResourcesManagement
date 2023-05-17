@@ -60,7 +60,7 @@ public class CompanyService extends ServiceManager<Company, String> {
 
 
     public boolean addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
-        Optional<Company> companyOptional = companyRepository.findOptionalByCentralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem());
+        Optional<Company> companyOptional = companyRepository.findOptionalByCentralRegistrySystemOrName(addCompanyRequestDto.getCentralRegistrySystem(), addCompanyRequestDto.getName());
         if (companyOptional.isPresent()) throw new CompanyException(EErrorType.COMPANY_HAS_BEEN);
         else {
             Company company = Company.builder()

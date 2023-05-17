@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ICompanyRepository extends MongoRepository<Company,String > {
 
-    Optional<Company> findOptionalByCentralRegistrySystem(String centralRegistrySystem);
+    Optional<Company> findOptionalByCentralRegistrySystemOrName(String centralRegistrySystem,String name);
 
     Optional<Company> findOptionalByName(String companyName);
 }
