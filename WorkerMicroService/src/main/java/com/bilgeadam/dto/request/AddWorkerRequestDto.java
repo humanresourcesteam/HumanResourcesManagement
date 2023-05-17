@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -45,4 +46,6 @@ public class AddWorkerRequestDto {
     String address;
 
     String companyPhone;
+
+    BigDecimal salary;
 }

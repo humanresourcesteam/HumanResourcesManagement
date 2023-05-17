@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AdvanceMicroService/HumanResourcesManagement.AdvanceMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AdvanceMicroService/HumanResourcesManagement.AdvanceMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ApiGatewayService/HumanResourcesManagement.ApiGatewayService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ApiGatewayService/HumanResourcesManagement.ApiGatewayService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthMicroService/HumanResourcesManagement.AuthMicroService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CompanyMicroService/HumanResourcesManagement.CompanyMicroService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CompanyMicroService/HumanResourcesManagement.CompanyMicroService.main.iml" />

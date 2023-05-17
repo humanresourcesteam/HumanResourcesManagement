@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-17T13:02:48+0300",
+    date = "2023-05-17T20:30:41+0300",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 17.0.4.1 (Oracle Corporation)"
 )
 @Component
@@ -42,6 +42,7 @@ public class IWorkerMapperImpl implements IWorkerMapper {
         getAllWorker.address( worker.getAddress() );
         getAllWorker.companyPhone( worker.getCompanyPhone() );
         getAllWorker.image( worker.getImage() );
+        getAllWorker.salary( worker.getSalary() );
 
         return getAllWorker.build();
     }

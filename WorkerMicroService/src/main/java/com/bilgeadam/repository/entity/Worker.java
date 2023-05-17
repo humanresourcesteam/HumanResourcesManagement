@@ -2,15 +2,13 @@ package com.bilgeadam.repository.entity;
 
 import com.bilgeadam.repository.enums.Activity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nonapi.io.github.classgraph.json.Id;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -18,7 +16,7 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 @Document
-public class Worker extends BaseEntity{
+public class Worker extends BaseEntity {
 
     @Id
     String id;
@@ -56,5 +54,7 @@ public class Worker extends BaseEntity{
     String companyPhone;
 
     String image;
+
+    BigDecimal salary;
 
 }

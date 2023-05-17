@@ -64,6 +64,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .authid(result)
                         .address(workerRequestDto.getAddress())
                         .companyPhone(workerRequestDto.getCompanyPhone())
+                        .salary(workerRequestDto.getSalary())
                         .build();
                 save(worker);
             } else {
@@ -84,6 +85,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .email(workerRequestDto.getEmail())
                         .authid(result)
                         .address(workerRequestDto.getAddress())
+                        .salary(workerRequestDto.getSalary())
                         .companyPhone(workerRequestDto.getCompanyPhone())
                         .build();
                 save(worker);
@@ -159,7 +161,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
     public List<NewEmployeeSummary> newEmployeeSummary() {
 
         List<NewEmployeeSummary> newEmployeeSummaries = new ArrayList<>();
-        workerRepository.findTop7ByOrderByCreatedateDesc().forEach(x -> {
+        workerRepository.findTop5ByOrderByCreatedateDesc().forEach(x -> {
             newEmployeeSummaries.add(NewEmployeeSummary.builder()
                     .image(x.getImage())
                     .name(x.getName())

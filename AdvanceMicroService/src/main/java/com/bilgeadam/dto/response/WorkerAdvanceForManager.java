@@ -1,6 +1,6 @@
 package com.bilgeadam.dto.response;
 
-import com.bilgeadam.repository.enums.AdvanceAmount;
+
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
 import com.bilgeadam.repository.enums.ECurrency;
@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @Builder
 public class WorkerAdvanceForManager {
 
+    String id;
     String managerid;
 
     String workerid;
@@ -31,7 +33,7 @@ public class WorkerAdvanceForManager {
 
     LocalDate replyDate;
 
-    AdvanceAmount advanceAmount;
+    BigDecimal advanceAmount;
 
     ECurrency currency;
     AdvanceRequestType advanceRequestType;

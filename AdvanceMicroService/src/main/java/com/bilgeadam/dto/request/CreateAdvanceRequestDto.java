@@ -1,14 +1,15 @@
 package com.bilgeadam.dto.request;
 
-import com.bilgeadam.repository.enums.AdvanceAmount;
+
 import com.bilgeadam.repository.enums.AdvanceRequestType;
-import com.bilgeadam.repository.enums.ApprovalStatus;
+
 import com.bilgeadam.repository.enums.ECurrency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -17,25 +18,13 @@ import java.time.LocalDate;
 @Builder
 public class CreateAdvanceRequestDto {
 
-    String id;
     String managerid;
-
     String workerid;
-
+    BigDecimal advanceAmount;
     String nameOfTheRequester;
-
     String surnameOfTheRequester;
-
-    LocalDate dateOfRequest;
-
     String description;
-
-    LocalDate replyDate;
-
-    AdvanceAmount advanceAmount;
-
     ECurrency currency;
-
     AdvanceRequestType advanceRequestType;
-    ApprovalStatus approvalStatus;
+
 }

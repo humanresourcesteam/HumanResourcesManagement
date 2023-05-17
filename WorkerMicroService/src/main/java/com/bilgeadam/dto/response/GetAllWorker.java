@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -48,4 +49,6 @@ public class GetAllWorker {
     String companyPhone;
 
     String image;
+
+    BigDecimal salary;
 }

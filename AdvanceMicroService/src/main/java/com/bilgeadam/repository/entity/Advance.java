@@ -1,6 +1,6 @@
 package com.bilgeadam.repository.entity;
 
-import com.bilgeadam.repository.enums.AdvanceAmount;
+
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
 import com.bilgeadam.repository.enums.ECurrency;
@@ -34,11 +34,12 @@ public class Advance extends BaseEntity{
 
     LocalDate dateOfRequest;
 
+
     String description;
 
     LocalDate replyDate;
 
-    AdvanceAmount advanceAmount;
+    BigDecimal advanceAmount;
 
     ECurrency currency;
 

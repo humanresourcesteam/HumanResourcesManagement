@@ -1,31 +1,22 @@
 package com.bilgeadam.dto.response;
 
-
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
 import com.bilgeadam.repository.enums.ECurrency;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class ApprovalStatusResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class AdvanceForWorker {
 
-    String managerid;
-
-    String workerid;
-
-    String nameOfTheRequester;
-
-    String surnameOfTheRequester;
-
+    String id;
+    ApprovalStatus approvalStatus;
     LocalDate dateOfRequest;
 
     String description;
@@ -35,8 +26,5 @@ public class ApprovalStatusResponse {
     BigDecimal advanceAmount;
 
     ECurrency currency;
-
     AdvanceRequestType advanceRequestType;
-
-    ApprovalStatus approvalStatus;
 }
