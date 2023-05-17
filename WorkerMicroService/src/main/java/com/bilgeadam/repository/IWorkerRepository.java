@@ -20,4 +20,7 @@ public interface IWorkerRepository extends MongoRepository<Worker,String> {
 
 
     Optional<Worker> findOptionalById(String id);
+
+
+    Optional<Worker> findOptionalByAuthid(Long authid);
 }

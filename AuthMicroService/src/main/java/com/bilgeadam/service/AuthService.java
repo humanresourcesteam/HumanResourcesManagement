@@ -3,6 +3,7 @@ package com.bilgeadam.service;
 import com.bilgeadam.dto.request.BaseRequestDto;
 import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
+import com.bilgeadam.dto.response.LoginResponseDto;
 import com.bilgeadam.dto.response.NewEmployeeResponseDto;
 import com.bilgeadam.exception.AuthException;
 import com.bilgeadam.exception.EErrorType;
@@ -53,12 +54,17 @@ public class AuthService extends ServiceManager<Auth, Long> {
         return true;
     }
 
-    public String doLogin(LoginRequestDto loginRequestDto) {
+    public LoginResponseDto doLogin(LoginRequestDto loginRequestDto) {
         Optional<Auth> auth = repository.findOptionalByEmailAndPassword(loginRequestDto.getEmail(), loginRequestDto.getPassword());
         if (auth.isEmpty()) throw new AuthException(EErrorType.AUTH_LOGIN_ERROR);
         Optional<String> token = jwtTokenManager.createToken(auth.get().getId());
         if (token.isEmpty()) throw new AuthException(EErrorType.INVALID_TOKEN);
-        return token.get();
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .eRole(auth.get().getRoles())
+                .token(token.get())
+                .build();
+
+        return loginResponseDto;
     }
 
     public boolean updateAuth(UpdateAuthModel updateAuthModel) {

@@ -1,5 +1,6 @@
 package com.bilgeadam.dto.response;
 
+import com.bilgeadam.repository.enums.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +15,6 @@ import javax.persistence.Entity;
 public class LoginResponseDto {
 
     String token;
+
+    ERole eRole;
 }

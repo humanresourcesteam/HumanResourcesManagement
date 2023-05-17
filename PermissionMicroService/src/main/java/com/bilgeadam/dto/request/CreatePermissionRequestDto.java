@@ -21,18 +21,14 @@ public class CreatePermissionRequestDto {
     String workerid;
 
     TypeOfPermit typeOfPermit;
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate startDate;
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate endDate;
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate dateOfRequest;
-
     Integer numberOfDays;
+    String name;
 
-
-
+    String surname;
 }

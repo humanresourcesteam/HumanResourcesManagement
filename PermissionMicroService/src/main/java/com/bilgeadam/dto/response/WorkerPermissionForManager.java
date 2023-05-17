@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Builder
 public class WorkerPermissionForManager {
 
+    String id;
+
     String workerid;
     TypeOfPermit typeOfPermit;
 
@@ -29,4 +31,8 @@ public class WorkerPermissionForManager {
     ApprovalStatus approvalStatus;
 
     LocalDate replyDate;
+
+    String name;
+
+    String surname;
 }

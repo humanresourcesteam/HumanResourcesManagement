@@ -15,6 +15,7 @@ import com.bilgeadam.rabbitmq.producer.WorkerProducer;
 import com.bilgeadam.repository.IWorkerRepository;
 import com.bilgeadam.repository.entity.Worker;
 import com.bilgeadam.repository.enums.Activity;
+import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -30,10 +31,12 @@ public class WorkerService extends ServiceManager<Worker, String> {
 
     private final WorkerProducer workerProducer;
 
-    public WorkerService(IWorkerRepository workerRepository, WorkerProducer workerProducer) {
+    private final JwtTokenManager jwtTokenManager;
+    public WorkerService(IWorkerRepository workerRepository, WorkerProducer workerProducer, JwtTokenManager jwtTokenManager) {
         super(workerRepository);
         this.workerRepository = workerRepository;
         this.workerProducer = workerProducer;
+        this.jwtTokenManager = jwtTokenManager;
     }
 
     public Boolean addWorker(AddWorkerRequestDto workerRequestDto) {
@@ -91,7 +94,9 @@ public class WorkerService extends ServiceManager<Worker, String> {
 
 
     public GetAllWorker getAllWorker(String id) {
-        Optional<Worker> workerOptional = workerRepository.findById(id);
+        Optional<Long> auth = jwtTokenManager.getIdFromToken(id);
+        if (auth.isEmpty())throw new WorkerException(EErrorType.INVALID_TOKEN);
+        Optional<Worker> workerOptional = workerRepository.findOptionalByAuthid(auth.get());
         return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
     }
 

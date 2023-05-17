@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class GetAllWorker {
 
+    String id;
     String companyid;
 
     String managerid;

@@ -26,9 +26,12 @@ public class WorkerController {
         return ResponseEntity.ok(workerService.addWorker(workerRequestDto));
     }
 
-    @GetMapping("/worker/{id}")
-    public ResponseEntity<GetAllWorker>getAllWorker(@PathVariable String id){
-        return ResponseEntity.ok(workerService.getAllWorker(id));
+
+
+
+    @GetMapping("/worker/{token}")
+    public ResponseEntity<GetAllWorker>getAllWorker(@PathVariable String token){
+        return ResponseEntity.ok(workerService.getAllWorker(token));
     }
 
     @GetMapping("/listworker/{id}")

@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 @Document
-public class Permission extends BaseEntity{
+public class Permission extends BaseEntity {
 
     @Id
     String id;
@@ -37,6 +37,10 @@ public class Permission extends BaseEntity{
 
     ApprovalStatus approvalStatus;
 
-    LocalDate replyDate;        // CURRENTTIME YAPARSAK DAHA IYI OLABILIR...
+    LocalDate replyDate;
+
+    String name;
+
+    String surname;
 
 }
