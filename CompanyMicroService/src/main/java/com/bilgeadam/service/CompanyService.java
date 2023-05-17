@@ -63,23 +63,44 @@ public class CompanyService extends ServiceManager<Company, String> {
         Optional<Company> companyOptional = companyRepository.findOptionalByCentralRegistrySystemOrName(addCompanyRequestDto.getCentralRegistrySystem(), addCompanyRequestDto.getName());
         if (companyOptional.isPresent()) throw new CompanyException(EErrorType.COMPANY_HAS_BEEN);
         else {
-            Company company = Company.builder()
-                    .centralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem())
-                    .name(addCompanyRequestDto.getName())
-                    .contractEndYear(addCompanyRequestDto.getContractEndYear())
-                    .phone(addCompanyRequestDto.getPhone())
-                    .image(imageUpload(addCompanyRequestDto.getImage()))
-                    .address(addCompanyRequestDto.getAddress())
-                    .taxNumber(addCompanyRequestDto.getTaxNumber())
-                    .taxOffice(addCompanyRequestDto.getTaxOffice())
-                    .contractStartYear(addCompanyRequestDto.getContractStartYear())
-                    .numberOfWorkers(addCompanyRequestDto.getNumberOfWorkers())
-                    .status(addCompanyRequestDto.getStatus())
-                    .title(addCompanyRequestDto.getTitle())
-                    .email(addCompanyRequestDto.getEmail())
-                    .yearOfEstablishment(addCompanyRequestDto.getYearOfEstablishment())
-                    .build();
-            save(company);
+
+            if (addCompanyRequestDto.getImage() == null) {
+                Company company = Company.builder()
+                        .centralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem())
+                        .name(addCompanyRequestDto.getName())
+                        .contractEndYear(addCompanyRequestDto.getContractEndYear())
+                        .phone(addCompanyRequestDto.getPhone())
+                        .image("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg")
+                        .address(addCompanyRequestDto.getAddress())
+                        .taxNumber(addCompanyRequestDto.getTaxNumber())
+                        .taxOffice(addCompanyRequestDto.getTaxOffice())
+                        .contractStartYear(addCompanyRequestDto.getContractStartYear())
+                        .numberOfWorkers(addCompanyRequestDto.getNumberOfWorkers())
+                        .status(addCompanyRequestDto.getStatus())
+                        .title(addCompanyRequestDto.getTitle())
+                        .email(addCompanyRequestDto.getEmail())
+                        .yearOfEstablishment(addCompanyRequestDto.getYearOfEstablishment())
+                        .build();
+                save(company);
+            } else {
+                Company company = Company.builder()
+                        .centralRegistrySystem(addCompanyRequestDto.getCentralRegistrySystem())
+                        .name(addCompanyRequestDto.getName())
+                        .contractEndYear(addCompanyRequestDto.getContractEndYear())
+                        .phone(addCompanyRequestDto.getPhone())
+                        .image(imageUpload(addCompanyRequestDto.getImage()))
+                        .address(addCompanyRequestDto.getAddress())
+                        .taxNumber(addCompanyRequestDto.getTaxNumber())
+                        .taxOffice(addCompanyRequestDto.getTaxOffice())
+                        .contractStartYear(addCompanyRequestDto.getContractStartYear())
+                        .numberOfWorkers(addCompanyRequestDto.getNumberOfWorkers())
+                        .status(addCompanyRequestDto.getStatus())
+                        .title(addCompanyRequestDto.getTitle())
+                        .email(addCompanyRequestDto.getEmail())
+                        .yearOfEstablishment(addCompanyRequestDto.getYearOfEstablishment())
+                        .build();
+                save(company);
+            }
             return true;
         }
     }

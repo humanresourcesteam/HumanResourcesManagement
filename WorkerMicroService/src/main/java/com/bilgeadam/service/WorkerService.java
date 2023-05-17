@@ -32,6 +32,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
     private final WorkerProducer workerProducer;
 
     private final JwtTokenManager jwtTokenManager;
+
     public WorkerService(IWorkerRepository workerRepository, WorkerProducer workerProducer, JwtTokenManager jwtTokenManager) {
         super(workerRepository);
         this.workerRepository = workerRepository;
@@ -95,13 +96,16 @@ public class WorkerService extends ServiceManager<Worker, String> {
     }
 
 
-    public GetAllWorker getAllWorker(String id) {
-        Optional<Long> auth = jwtTokenManager.getIdFromToken(id);
-        if (auth.isEmpty())throw new WorkerException(EErrorType.INVALID_TOKEN);
+    public GetAllWorker getAllWorker(String token) {
+        Optional<Long> auth = jwtTokenManager.getIdFromToken(token);
+        if (auth.isEmpty()) throw new WorkerException(EErrorType.INVALID_TOKEN);
         Optional<Worker> workerOptional = workerRepository.findOptionalByAuthid(auth.get());
         return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
     }
-
+    public GetAllWorker getAllWorkerForManager(String id) {
+        Optional<Worker> workerOptional = findById(id);
+        return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
+    }
 
     public List<WorkerListDto> workerList(String id) {
         List<WorkerListDto> workerList = new ArrayList<>();
