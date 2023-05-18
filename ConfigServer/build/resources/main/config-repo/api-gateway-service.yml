@@ -1,0 +1,110 @@
+server:
+  port: 80
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configuration:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+      default-filters:
+        - RewritePath= /(?<segment>.*), /api/v1/$\{segment}
+      routes:
+        - id: auth-micro-service
+          predicates:
+            - Path=/auth/**
+          uri: http://localhost:9090
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackUri: forward:/fallbackauth
+        - id: admin-micro-service
+          predicates:
+            - Path=/admin/**
+          uri: http://localhost:9091
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackUri: forward:/fallbackadmin
+        - id: company-micro-service
+          predicates:
+            - Path=/company/**
+          uri: http://localhost:9094
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackcompany
+        - id: manager-micro-service
+          predicates:
+            - Path=/manager/**
+          uri: http://localhost:9092
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackmanager
+        - id: worker-micro-service
+          predicates:
+            - Path=/worker/**
+          uri: http://localhost:9093
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackworker
+        - id: mail-micro-service
+          predicates:
+            - Path=/worker/**
+          uri: http://localhost:8082
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackmail
+        - id: permission-micro-service
+          predicates:
+            - Path=/permission/**
+          uri: http://localhost:9096
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackpermission
+        - id: expense-micro-service
+          predicates:
+            - Path=/expense/**
+          uri: http://localhost:9097
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackexpense
+        - id: advance-micro-service
+          predicates:
+            - Path=/advance/**
+          uri: http://localhost:9098
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+            - name: CircuitBreaker
+              args:
+                name: auth
+                fallbackuri: forward:/fallbackadvance
