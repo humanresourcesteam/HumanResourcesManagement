@@ -1,7 +1,7 @@
 package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
+
 import com.bilgeadam.repository.enums.ExpenditureType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class ApprovalStatusResponse {
 
     BigDecimal amountOfExpenditure;
 
-    ECurrency currency;
+    String currency;
 
     LocalDate replyDate;
 

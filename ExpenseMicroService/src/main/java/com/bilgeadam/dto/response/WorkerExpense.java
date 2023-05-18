@@ -1,23 +1,19 @@
 package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.ApprovalStatus;
-
 import com.bilgeadam.repository.enums.ExpenditureType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
-public class WorkerExpenseForManager {
-
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class WorkerExpense {
 
     String id;
     String workerid;
@@ -36,7 +32,5 @@ public class WorkerExpenseForManager {
     List<String> file;
     LocalDate requestDate;
     String desc;
-    String name;
 
-    String surname;
 }

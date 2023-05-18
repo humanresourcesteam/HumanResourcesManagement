@@ -1,7 +1,6 @@
 package com.bilgeadam.repository.entity;
 
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
 import com.bilgeadam.repository.enums.ExpenditureType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -33,11 +33,17 @@ public class Expense extends BaseEntity{
 
     BigDecimal amountOfExpenditure;
 
-    ECurrency currency;
+    String currency;
 
     LocalDate replyDate;
 
     ApprovalStatus approvalStatus;
-    String  file;
+    List<String> file;
+    LocalDate requestDate;
+    String desc;
+
+    String name;
+
+    String surname;
 
 }
