@@ -97,14 +97,14 @@ public class AuthService extends ServiceManager<Auth, Long> {
         if (auth.isEmpty()) {
             Auth authManager = Auth.builder()
                     .roles(ERole.MANAGER)
-                    .password(UUID.randomUUID().toString().substring(0,8))
+                    .password(UUID.randomUUID().toString().substring(0, 8))
                     .email(createManager.getEmail())
                     .build();
             save(authManager);
             authProducer.sendPasswordAfterManagerCreate(MailManagerPassword.builder()
                     .mail(authManager.getEmail())
                     .authid(authManager.getId())
-                    .password(UUID.randomUUID().toString().substring(0,8))
+                    .password(authManager.getPassword())
                     .build());
             return authManager.getId();
         }
@@ -117,17 +117,25 @@ public class AuthService extends ServiceManager<Auth, Long> {
         if (auth.isEmpty()) {
             Auth authWorker = Auth.builder()
                     .email(createWorker.getEmail())
-                    .password(UUID.randomUUID().toString().substring(0,8))
+                    .password(UUID.randomUUID().toString().substring(0, 8))
                     .roles(ERole.EMPLOYEE)
                     .build();
             save(authWorker);
             authProducer.sendPasswordAfterManagerCreate(MailManagerPassword.builder()
                     .mail(authWorker.getEmail())
                     .authid(authWorker.getId())
-                    .password(UUID.randomUUID().toString().substring(0,8))
+                    .password(authWorker.getPassword())
                     .build());
             return authWorker.getId();
         }
         return 0L;
+    }
+
+    public String forgotPassword(PasswordForgot passwordForgot) {
+        Optional<Auth> auth = findById(passwordForgot.getAuthid());
+        String newPassword = UUID.randomUUID().toString().substring(0, 8);
+        auth.get().setPassword(newPassword);
+        update(auth.get());
+        return newPassword;
     }
 }

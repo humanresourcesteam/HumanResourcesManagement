@@ -50,6 +50,25 @@ public class RabbitConfig {
     private String queueWorkerAuth = "queue-worker-auth";
 
 
+    //FORGOT-PASSWORD START
+    private String keyAuthFromMail = ("key-auth-from-mail");
+
+    private String queueAuthFromMail = ("queue-auth-from-mail");
+
+
+    @Bean
+    Queue queueAuthFromMail() {
+        return new Queue(queueAuthFromMail);
+    }
+
+    @Bean
+    Binding bindingAuthFromMail(final Queue queueAuthFromMail, final DirectExchange directExchangeMail) {
+        return BindingBuilder.bind(queueAuthFromMail).to(directExchangeMail).with(keyAuthFromMail);
+    }
+    //FORGOT-PASSWORD END
+
+
+
     @Bean
     DirectExchange directExchangeWorkerAuth() {
         return new DirectExchange(exchangeCreateWorkerForAuth);

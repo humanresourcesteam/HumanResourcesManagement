@@ -17,6 +17,22 @@ public class RabbitConfig {
 
     private String queueMailForManager = "queue-mail-for-maanager";
 
+//FORGOT-PASSWORD START
+    private String keyAuthFromMail = ("key-auth-from-mail");
+
+    private String queueAuthFromMail = ("queue-auth-from-mail");
+
+
+    @Bean
+    Queue queueAuthFromMail() {
+        return new Queue(queueAuthFromMail);
+    }
+
+    @Bean
+    Binding bindingAuthFromMail(final Queue queueAuthFromMail, final DirectExchange directExchangeMail) {
+        return BindingBuilder.bind(queueAuthFromMail).to(directExchangeMail).with(keyAuthFromMail);
+    }
+//FORGOT-PASSWORD END
 
     @Bean
     DirectExchange directExchangeMail() {
@@ -24,12 +40,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    Queue queueMailForManager(){
+    Queue queueMailForManager() {
         return new Queue(queueMailForManager);
     }
 
     @Bean
-    Binding bindingMailForManager(final Queue queueMailForManager, final DirectExchange directExchangeMail){
+    Binding bindingMailForManager(final Queue queueMailForManager, final DirectExchange directExchangeMail) {
         return BindingBuilder.bind(queueMailForManager).to(directExchangeMail).with(keyMailForManager);
     }
     //
