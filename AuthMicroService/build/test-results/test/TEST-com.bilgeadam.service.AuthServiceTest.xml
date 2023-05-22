@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bilgeadam.service.AuthServiceTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2023-05-22T00:01:38" hostname="MELIHCAN" time="2.383">
+  <properties/>
+  <testcase name="testCreateWorker_Failure()" classname="com.bilgeadam.service.AuthServiceTest" time="2.141"/>
+  <testcase name="Register Success" classname="com.bilgeadam.service.AuthServiceTest" time="0.079"/>
+  <testcase name="testCreateWorker()" classname="com.bilgeadam.service.AuthServiceTest" time="0.016"/>
+  <testcase name="Update Auth" classname="com.bilgeadam.service.AuthServiceTest" time="0.014"/>
+  <testcase name="Forgot password" classname="com.bilgeadam.service.AuthServiceTest" time="0.013"/>
+  <testcase name="Fail Update Auth" classname="com.bilgeadam.service.AuthServiceTest" time="0.011"/>
+  <testcase name="Failed registration due to email" classname="com.bilgeadam.service.AuthServiceTest" time="0.025"/>
+  <testcase name="Failed Registration due to password" classname="com.bilgeadam.service.AuthServiceTest" time="0.007"/>
+  <testcase name="testCreateManager()" classname="com.bilgeadam.service.AuthServiceTest" time="0.01"/>
+  <testcase name="testCreateManager_Failure()" classname="com.bilgeadam.service.AuthServiceTest" time="0.02"/>
+  <testcase name="testDoLogin()" classname="com.bilgeadam.service.AuthServiceTest" time="0.017"/>
+  <system-out><![CDATA[0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

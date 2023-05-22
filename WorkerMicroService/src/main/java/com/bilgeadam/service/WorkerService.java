@@ -2,6 +2,7 @@ package com.bilgeadam.service;
 
 
 import com.bilgeadam.dto.request.AddWorkerRequestDto;
+import com.bilgeadam.dto.request.UpdateWorkerRequestDto;
 import com.bilgeadam.dto.response.GetAllWorker;
 import com.bilgeadam.dto.response.NewEmployeeSummary;
 import com.bilgeadam.dto.response.SummaryWorker;
@@ -177,5 +178,33 @@ public class WorkerService extends ServiceManager<Worker, String> {
     }
 
 
-
+    public Object updateWorker(UpdateWorkerRequestDto updateWorkerRequestDto) {
+        Optional<Long> authid = jwtTokenManager.getIdFromToken(updateWorkerRequestDto.getToken());
+        if (authid.isEmpty()) throw new WorkerException(EErrorType.INVALID_TOKEN);
+        Optional<Worker> workerOptional = workerRepository.findOptionalByAuthid(authid.get());
+        if (workerOptional.get().getEmail().equals(updateWorkerRequestDto.getEmail())) {
+            if (updateWorkerRequestDto.getImage() == null) {
+                workerOptional.get().setAddress(updateWorkerRequestDto.getAddress());
+                workerOptional.get().setName(updateWorkerRequestDto.getName());
+                workerOptional.get().setSurname(updateWorkerRequestDto.getSurname());
+                workerOptional.get().setSecondname(updateWorkerRequestDto.getSecondname());
+                workerOptional.get().setSecondSurname(updateWorkerRequestDto.getSecondSurname());
+                workerOptional.get().setAddress(updateWorkerRequestDto.getAddress());
+                workerOptional.get().setCompanyPhone(updateWorkerRequestDto.getCompanyPhone());
+                update(workerOptional.get());
+            } else {
+                workerOptional.get().setAddress(updateWorkerRequestDto.getAddress());
+                workerOptional.get().setName(updateWorkerRequestDto.getName());
+                workerOptional.get().setSurname(updateWorkerRequestDto.getSurname());
+                workerOptional.get().setSecondname(updateWorkerRequestDto.getSecondname());
+                workerOptional.get().setSecondSurname(updateWorkerRequestDto.getSecondSurname());
+                workerOptional.get().setAddress(updateWorkerRequestDto.getAddress());
+                workerOptional.get().setImage(imageUpload(updateWorkerRequestDto.getImage()));
+                workerOptional.get().setCompanyPhone(updateWorkerRequestDto.getCompanyPhone());
+                update(workerOptional.get());
+            }
+            return true;
+        }
+        return false;
+    }
 }

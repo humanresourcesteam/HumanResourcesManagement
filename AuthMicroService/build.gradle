@@ -4,9 +4,15 @@ buildscript {
     }
 }
 
+test{
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation libs.sprinBootRabbitMQ
     implementation libs.springBootStarterDataJpa
     implementation libs.postgreSql
     implementation libs.springCloudConfigClient
+    implementation libs.springBootStarterTest
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 }
