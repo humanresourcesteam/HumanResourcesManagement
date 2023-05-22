@@ -1,6 +1,7 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.AddWorkerRequestDto;
+import com.bilgeadam.dto.request.UpdateWorkerRequestDto;
 import com.bilgeadam.dto.response.GetAllWorker;
 import com.bilgeadam.dto.response.NewEmployeeSummary;
 import com.bilgeadam.dto.response.SummaryWorker;
@@ -49,6 +50,11 @@ public class WorkerController {
         return ResponseEntity.ok(workerService.newEmployeeSummary());
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?>updateWorkerProfile(UpdateWorkerRequestDto updateWorkerRequestDto){
+        System.out.println("deene");
+        return ResponseEntity.ok(workerService.updateWorker(updateWorkerRequestDto));
 
+    }
 
 }

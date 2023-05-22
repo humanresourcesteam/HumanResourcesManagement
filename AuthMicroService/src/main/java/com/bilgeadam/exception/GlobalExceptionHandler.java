@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
      * loglama yapabilir geribildirtimleri toplayabilirsiniz.
      */
     private ErrorMessage createError(EErrorType EErrorType, Exception exception){
-        System.out.println("HATA OLDU.....: "+ exception.getMessage());
+//        System.out.println("HATA OLDU.....: "+ exception.getMessage());
         return ErrorMessage.builder()
                 .code(EErrorType.getCode())
                 .message(EErrorType.getMessage())
