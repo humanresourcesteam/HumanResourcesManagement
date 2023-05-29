@@ -50,6 +50,7 @@ public class WorkerController {
         System.out.println("deene");
         return ResponseEntity.ok(workerService.updateWorker(updateWorkerRequestDto));
     }
+
     @GetMapping("/getallworker")
     public ResponseEntity<Long> getAllWorkerCount(){
         return ResponseEntity.ok(workerService.getAllWorkerCount());

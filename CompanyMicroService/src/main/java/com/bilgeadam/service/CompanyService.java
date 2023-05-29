@@ -99,7 +99,9 @@ public class CompanyService extends ServiceManager<Company, String> {
                 }).exceptionally(ex -> {
                     ex.printStackTrace();
                     return null;
+
                 }).join();
+
 
             }
             return true;

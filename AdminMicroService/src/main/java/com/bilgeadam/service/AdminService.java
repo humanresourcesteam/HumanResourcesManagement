@@ -15,6 +15,7 @@ import com.bilgeadam.repository.entity.Admin;
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,7 +89,9 @@ public class AdminService extends ServiceManager<Admin, String> {
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
             new Thread(() -> {
+
                 if (updateRequestDto.getImage() != null) admin.get().setImage(imageUpload(updateRequestDto.getImage()));
+
                 update(admin.get());
             }).start();
             try {
