@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ManagerService extends ServiceManager<Manager, String> {
@@ -40,7 +42,7 @@ public class ManagerService extends ServiceManager<Manager, String> {
         this.jwtTokenManager = jwtTokenManager;
     }
 
-    public boolean addNewManager(AddManagerRequestDto addManagerRequestDto) throws IOException {
+    public boolean addNewManager(AddManagerRequestDto addManagerRequestDto)  {
         String companyId = managerProducer.companyIdForManager(CompanyName.builder()
                 .companyName(addManagerRequestDto.getCompanyName())
                 .build());
@@ -54,11 +56,18 @@ public class ManagerService extends ServiceManager<Manager, String> {
                 .build());
         if (result == 0L) throw new ManagerException(EErrorType.AUTH_EMAIL_ERROR);
         else {
+
+            String url = imageUpload(addManagerRequestDto.getImage());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             Manager manager = Manager.builder()
                     .address(addManagerRequestDto.getAddress())
                     .email(addManagerRequestDto.getEmail())
                     .firstName(addManagerRequestDto.getFirstName())
-                    .image(imageUpload(addManagerRequestDto.getImage()))
+                    .image(url)
                     .phone(addManagerRequestDto.getPhone())
                     .identificationNumber(addManagerRequestDto.getIdentificationNumber())
                     .dateOfEmployment(addManagerRequestDto.getDateOfEmployment())
@@ -68,6 +77,7 @@ public class ManagerService extends ServiceManager<Manager, String> {
                     .birthdayPlace(addManagerRequestDto.getBirthdayPlace())
                     .birthDate(addManagerRequestDto.getBirthDate())
                     .build();
+
             save(manager);
             return true;
         }

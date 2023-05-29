@@ -1,6 +1,7 @@
 package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.BaseRequestDto;
+import com.bilgeadam.dto.request.ChangePassword;
 import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.LoginResponseDto;
@@ -137,5 +138,15 @@ public class AuthService extends ServiceManager<Auth, Long> {
         auth.get().setPassword(newPassword);
         update(auth.get());
         return newPassword;
+    }
+
+    public Boolean changePassword(ChangePassword changePassword) {
+        Optional<Long> longOptional = jwtTokenManager.getIdFromToken(changePassword.getAuthid());
+        Optional<Auth> auth = findById(longOptional.get());
+        if (auth.get().getPassword().equals(changePassword.getCurrent())) {
+            auth.get().setPassword(changePassword.getNewpass());
+            update(auth.get());
+            return true;
+        } else throw new AuthException(EErrorType.AUTH_PASSWORD_ERROR);
     }
 }

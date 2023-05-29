@@ -24,7 +24,7 @@ public class CreateAdvanceRequestDto {
     String nameOfTheRequester;
     String surnameOfTheRequester;
     String description;
-    ECurrency currency;
+    String currency;
     AdvanceRequestType advanceRequestType;
 
 }

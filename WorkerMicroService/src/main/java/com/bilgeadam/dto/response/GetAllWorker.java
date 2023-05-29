@@ -51,4 +51,5 @@ public class GetAllWorker {
     String image;
 
     BigDecimal salary;
+
 }

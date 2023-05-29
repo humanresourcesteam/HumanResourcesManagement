@@ -34,7 +34,7 @@ public class ApprovalStatusResponse {
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+   String currency;
 
     AdvanceRequestType advanceRequestType;
 

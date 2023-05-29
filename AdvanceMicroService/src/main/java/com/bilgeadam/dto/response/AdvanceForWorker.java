@@ -25,6 +25,6 @@ public class AdvanceForWorker {
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+    String currency;
     AdvanceRequestType advanceRequestType;
 }

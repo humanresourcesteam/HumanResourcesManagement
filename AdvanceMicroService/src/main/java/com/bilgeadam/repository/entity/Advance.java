@@ -41,7 +41,7 @@ public class Advance extends BaseEntity{
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+    String currency;
 
     AdvanceRequestType advanceRequestType;
 

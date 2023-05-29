@@ -25,8 +25,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping( UPDATE)
-    public ResponseEntity<Boolean> updateInfo( UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
-        System.out.println(updateRequestDto);
+    public ResponseEntity<Boolean> updateInfo( UpdateAdminInfoRequestDto updateRequestDto) {
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
     @GetMapping(SUMMARY)

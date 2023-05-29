@@ -35,7 +35,7 @@ public class WorkerAdvanceForManager {
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+   String currency;
     AdvanceRequestType advanceRequestType;
 
 }
