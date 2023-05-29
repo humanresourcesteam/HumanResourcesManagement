@@ -18,7 +18,6 @@ public class WorkerProducer {
         return (String) rabbitTemplate.convertSendAndReceive("exchange-worker-company", "key-worker-company", workerModel);
 
     }
-
     public Long createAuth(CreateWorker createWorker){
         return (Long) rabbitTemplate.convertSendAndReceive("exchange-worker-auth","key-worker-auth",createWorker);
     }

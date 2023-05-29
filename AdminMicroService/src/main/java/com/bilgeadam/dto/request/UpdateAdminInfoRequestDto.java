@@ -14,12 +14,10 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class UpdateAdminInfoRequestDto {
+    private String token;
+    private String firstName;
+    private String surname;
+    private String email;
+    private MultipartFile image;
 
- private   String token;
-    private    String firstName;
-    private    String surname;
-  //  LocalDate dateOfEmployment;
-  private    String email;
-
-    private    MultipartFile image;
 }

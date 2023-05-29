@@ -24,16 +24,10 @@ public class Manager extends BaseEntity{
     String surname;
     String email;
     LocalDate dateOfEmployment;
-
     String role = "MANAGER";
-
     String address;
-
     String phone;
-
     String identificationNumber;
-
     String birthdayPlace;
-
     LocalDate birthDate;
 }

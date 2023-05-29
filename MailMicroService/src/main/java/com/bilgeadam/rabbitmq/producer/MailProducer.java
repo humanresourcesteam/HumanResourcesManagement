@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 public class MailProducer {
 
     private final RabbitTemplate rabbitTemplate;
-
     public String forgotPassword(PasswordForgot passwordForgot){
         return (String) rabbitTemplate.convertSendAndReceive("exchange-mail","key-auth-from-mail",passwordForgot);
     }

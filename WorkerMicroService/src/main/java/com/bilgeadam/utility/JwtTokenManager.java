@@ -15,9 +15,7 @@ public class JwtTokenManager {
 
     @Value("${jwt.secretKey}")
     private String passwordKey;
-
     private final Long exTime = 1000L*60*600;
-
     public Optional<String> createToken(Long id){
         String token ="";
         try {
@@ -32,7 +30,6 @@ public class JwtTokenManager {
             return Optional.empty();
         }
     }
-
     public Optional<Long> getIdFromToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC512(passwordKey);

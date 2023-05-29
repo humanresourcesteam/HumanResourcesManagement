@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Getter
-public class ServiceManager<T extends BaseEntity,ID> implements IService<T,ID>{
+public class ServiceManager<T extends BaseEntity, ID> implements IService<T, ID> {
 
-    private final MongoRepository<T,ID> repository;
+    private final MongoRepository<T, ID> repository;
 
     @Override
     public T save(T t) {
@@ -24,7 +24,7 @@ public class ServiceManager<T extends BaseEntity,ID> implements IService<T,ID>{
 
     @Override
     public Iterable<T> saveAll(Iterable<T> t) {
-        t.forEach(x->{
+        t.forEach(x -> {
             x.setCreatedate(System.currentTimeMillis());
             x.setUpdatedate(System.currentTimeMillis());
             x.setState(true);

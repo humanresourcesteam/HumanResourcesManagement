@@ -11,7 +11,6 @@ public class ManagerException extends RuntimeException{
         super(errorType.getMessage());
         this.errorType = errorType;
     }
-
     public ManagerException(EErrorType errorType, String message){
         super(message);
         this.errorType = errorType;

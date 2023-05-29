@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class MailConsumer {
 
     private final MailService mailService;
-
     @RabbitListener(queues = "queue-mail-for-maanager")
     public void sendPasswordForManagerAfterCreate(MailManagerPassword mailManagerPassword){
         mailService.sendPassword(mailManagerPassword);

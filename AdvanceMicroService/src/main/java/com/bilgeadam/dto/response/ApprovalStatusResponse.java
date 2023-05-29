@@ -3,7 +3,6 @@ package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

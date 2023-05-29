@@ -16,8 +16,6 @@ public class MailController {
 
     private final MailService mailService;
 
-
-
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword (@RequestBody EmailRequestDto emailRequestDto){
         return ResponseEntity.ok(mailService.forgotPassword(emailRequestDto));

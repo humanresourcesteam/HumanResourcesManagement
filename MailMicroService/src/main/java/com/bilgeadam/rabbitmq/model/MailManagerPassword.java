@@ -14,8 +14,6 @@ import java.io.Serializable;
 public class MailManagerPassword implements Serializable {
 
     Long authid;
-
     String password;
-
     String mail;
 }

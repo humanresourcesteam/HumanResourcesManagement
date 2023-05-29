@@ -12,6 +12,5 @@ import java.io.Serializable;
 public class PasswordForgot implements Serializable {
 
     String email;
-
     Long authid;
 }

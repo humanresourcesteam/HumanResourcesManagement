@@ -15,7 +15,6 @@ public class ManagerProducer {
     public Long createAuthFromManager(CreateManager createManager) {
         return (Long) rabbitTemplate.convertSendAndReceive("exchange-manager-auth", "exchange-manager-auth", createManager);
     }
-
     public String companyIdForManager(CompanyName companyName){
         return (String) rabbitTemplate.convertSendAndReceive("exchange-manager-company","exchange-manager-company",companyName);
     }

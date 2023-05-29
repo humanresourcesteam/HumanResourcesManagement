@@ -20,7 +20,6 @@ import static com.bilgeadam.constant.EndPoints.*;
 public class CompanyController {
 
     private final CompanyService companyService;
-
     @PostMapping(ADDCOMPANY)
     public ResponseEntity<Boolean> addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
         return ResponseEntity.ok(companyService.addCompany(addCompanyRequestDto));
@@ -29,12 +28,10 @@ public class CompanyController {
     public ResponseEntity<List<SummaryInfoCompany>>getAllCompanySummaryInfo(){
         return ResponseEntity.ok(companyService.getAllCompanySummaryInfo());
     }
-
     @GetMapping("/company/{id}")
     public ResponseEntity<GetAllInfoCompany>getAllInfoCompany(@PathVariable String id){
         return ResponseEntity.ok(companyService.getAllInfo(id));
     }
-
     @GetMapping("/company-info-for-admin/{companyId}")
     public  ResponseEntity<String> getCompanyNameForManager(@PathVariable String companyId){
         return ResponseEntity.ok(companyService.getCompanyName(companyId));

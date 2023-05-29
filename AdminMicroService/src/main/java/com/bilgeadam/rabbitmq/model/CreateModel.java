@@ -20,5 +20,4 @@ public class CreateModel implements Serializable {
     Long authid;
 
 
-
 }

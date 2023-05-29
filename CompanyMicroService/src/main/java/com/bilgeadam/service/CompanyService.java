@@ -10,8 +10,6 @@ import com.bilgeadam.rabbitmq.model.CompanyName;
 import com.bilgeadam.rabbitmq.model.WorkerModel;
 import com.bilgeadam.repository.ICompanyRepository;
 import com.bilgeadam.repository.entity.Company;
-import com.bilgeadam.utility.FileService;
-import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -29,15 +27,9 @@ public class CompanyService extends ServiceManager<Company, String> {
 
     private final ICompanyRepository companyRepository;
 
-    private final JwtTokenManager jwtTokenManager;
-
-    private final FileService fileService;
-
-    public CompanyService(ICompanyRepository companyRepository, JwtTokenManager jwtTokenManager, FileService fileService) {
+    public CompanyService(ICompanyRepository companyRepository) {
         super(companyRepository);
         this.companyRepository = companyRepository;
-        this.jwtTokenManager = jwtTokenManager;
-        this.fileService = fileService;
     }
 
     public String imageUpload(MultipartFile file) {
@@ -58,8 +50,6 @@ public class CompanyService extends ServiceManager<Company, String> {
             return null;
         }
     }
-
-
     public boolean addCompany(AddCompanyRequestDto addCompanyRequestDto) throws IOException {
         Optional<Company> companyOptional = companyRepository.findOptionalByCentralRegistrySystemOrName(addCompanyRequestDto.getCentralRegistrySystem(), addCompanyRequestDto.getName());
         if (companyOptional.isPresent()) throw new CompanyException(EErrorType.COMPANY_HAS_BEEN);
@@ -109,14 +99,14 @@ public class CompanyService extends ServiceManager<Company, String> {
                 }).exceptionally(ex -> {
                     ex.printStackTrace();
                     return null;
-                }).join(); //
+
+                }).join();
+
 
             }
             return true;
         }
     }
-
-
     public List<SummaryInfoCompany> getAllCompanySummaryInfo() {
         List<SummaryInfoCompany> summaryInfoCompanies = new ArrayList<>();
         companyRepository.findAll().forEach(x -> {
@@ -131,11 +121,8 @@ public class CompanyService extends ServiceManager<Company, String> {
         });
         return summaryInfoCompanies;
     }
-
-
     public GetAllInfoCompany getAllInfo(String id) {
         Optional<Company> companyOptional = companyRepository.findById(id);
-
         long diff = ChronoUnit.DAYS.between(companyOptional.get().getContractStartYear(), companyOptional.get().getContractEndYear());
         System.out.println(diff);
         LocalDate date = LocalDate.now();
@@ -145,19 +132,15 @@ public class CompanyService extends ServiceManager<Company, String> {
         getAllInfoCompany.setRemainingDays((int) remaining);
         return getAllInfoCompany;
     }
-
-
     public String workerCompanyName(WorkerModel workerModel) {
         Optional<Company> company = companyRepository.findById(workerModel.getId());
         return company.get().getName();
     }
-
     public String companyIdForManager(CompanyName companyName) {
         Optional<Company> company = companyRepository.findOptionalByName(companyName.getCompanyName());
         return company.get().getId();
 
     }
-
     public String getCompanyName(String companyId) {
         Optional<Company> company = companyRepository.findById(companyId);
         return company.get().getName();

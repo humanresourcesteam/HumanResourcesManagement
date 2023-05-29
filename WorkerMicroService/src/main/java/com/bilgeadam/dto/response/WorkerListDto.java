@@ -12,12 +12,8 @@ import lombok.NoArgsConstructor;
 public class WorkerListDto {
 
     String name;
-
     String surname;
-
     String phone;
-
     String email;
-
     String companyname;
 }

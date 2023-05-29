@@ -22,39 +22,22 @@ public class Worker extends BaseEntity {
     String id;
     Long authid;
     String companyid;
-
     String managerid;
-
     String name;
-
     String secondname;
-
     String surname;
-
     String secondSurname;
-
     LocalDate birthDate;
-
     String birthPlace;
-
     String identificationNumber;
-
     LocalDate dateOfEmployment;
-
     String terminationDate;
-
     Activity activity;
-
     String occupation;
-
     String email;
-
     String address;
-
     String companyPhone;
-
     String image;
-
     BigDecimal salary;
 
 }

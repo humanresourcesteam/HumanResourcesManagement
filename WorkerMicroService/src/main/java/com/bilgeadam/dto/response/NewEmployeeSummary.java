@@ -10,10 +10,7 @@ import lombok.*;
 public class NewEmployeeSummary {
 
     String name;
-
     String surname;
-
     String occupation;
-
     String image;
 }

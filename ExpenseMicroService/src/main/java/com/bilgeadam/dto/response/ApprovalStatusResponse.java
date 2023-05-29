@@ -18,15 +18,10 @@ import java.time.LocalDate;
 public class ApprovalStatusResponse {
 
     String workerid;
-
     ExpenditureType expenditureType;
-
     BigDecimal amountOfExpenditure;
-
     String currency;
-
     LocalDate replyDate;
-
     ApprovalStatus approvalStatus;
     String  file;
 }

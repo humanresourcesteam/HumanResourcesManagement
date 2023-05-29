@@ -8,6 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class BaseRequestDto {
-
     String token;
 }

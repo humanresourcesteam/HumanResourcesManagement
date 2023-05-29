@@ -16,8 +16,6 @@ import java.util.List;
 public class ErrorMessage {
 
     private int code;
-
     private String message;
-
     private List<String> fields;
 }

@@ -10,9 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface IAdvanceRepository extends MongoRepository<Advance, String> {
-    Optional<Advance> findOptionalByManagerid(String managerid);
-
-//    List<Advance> findOptionalByOrderApprovalStatusDesc(ApprovalStatus approvalStatus);
 
     List<Advance> findByWorkerid(String workerid);
     List<Advance> findByManagerid(String managerid);

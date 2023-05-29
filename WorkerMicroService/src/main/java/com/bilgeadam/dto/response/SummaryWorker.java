@@ -12,13 +12,9 @@ public class SummaryWorker {
 
     String id;
     String name;
-
     String image;
     String surname;
-
     String companyPhone;
-
     String email;
-
     Activity activity;
 }

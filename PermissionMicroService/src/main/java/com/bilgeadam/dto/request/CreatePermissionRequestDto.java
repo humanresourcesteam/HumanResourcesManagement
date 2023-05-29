@@ -17,9 +17,7 @@ import java.time.LocalDate;
 public class CreatePermissionRequestDto {
 
     String managerid;
-
     String workerid;
-
     TypeOfPermit typeOfPermit;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate startDate;
@@ -29,6 +27,5 @@ public class CreatePermissionRequestDto {
     LocalDate dateOfRequest;
     Integer numberOfDays;
     String name;
-
     String surname;
 }

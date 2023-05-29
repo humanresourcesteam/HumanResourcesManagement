@@ -12,7 +12,6 @@ import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
 import com.bilgeadam.rabbitmq.producer.UpdateAuthProducer;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
-import com.bilgeadam.utility.FileService;
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
@@ -21,7 +20,6 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -29,17 +27,13 @@ import java.util.*;
 public class AdminService extends ServiceManager<Admin, String> {
 
     private final IAdminRepository repository;
-
     private final JwtTokenManager jwtTokenManager;
-
     private final UpdateAuthProducer updateAuthProducer;
-    private final FileService fileService;
 
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer, FileService fileService) {
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
-        this.fileService = fileService;
         this.updateAuthProducer = updateAuthProducer;
 
     }
@@ -49,11 +43,7 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (auth.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         List<SummaryResponseDto> summaryList = new ArrayList<>();
         findAll().forEach(x -> {
-            summaryList.add(SummaryResponseDto.builder()
-                    .email(x.getEmail())
-                    .surname(x.getSurname())
-                    .firstName(x.getFirstName())
-                    .build());
+            summaryList.add(SummaryResponseDto.builder().email(x.getEmail()).surname(x.getSurname()).firstName(x.getFirstName()).build());
         });
         return summaryList;
     }
@@ -64,12 +54,7 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (auth.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         List<DetailResponseDto> detailInformation = new ArrayList<>();
         findAll().forEach(x -> {
-            detailInformation.add(DetailResponseDto.builder()
-                    .surname(x.getSurname())
-                    .email(x.getEmail())
-                    .dateOfEmployment(x.getDateOfEmployment())
-                    .firstName(x.getFirstName())
-                    .build());
+            detailInformation.add(DetailResponseDto.builder().surname(x.getSurname()).email(x.getEmail()).dateOfEmployment(x.getDateOfEmployment()).firstName(x.getFirstName()).build());
         });
         return detailInformation;
     }
@@ -104,8 +89,9 @@ public class AdminService extends ServiceManager<Admin, String> {
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
             new Thread(() -> {
-                if (updateRequestDto.getImage() != null)
-                    admin.get().setImage(imageUpload(updateRequestDto.getImage()));
+
+                if (updateRequestDto.getImage() != null) admin.get().setImage(imageUpload(updateRequestDto.getImage()));
+
                 update(admin.get());
             }).start();
             try {
@@ -120,10 +106,7 @@ public class AdminService extends ServiceManager<Admin, String> {
             update(admin.get());
             return true;
         } else {
-            boolean result = updateAuthProducer.updateAuth(UpdateAuthModel.builder()
-                    .email(updateRequestDto.getEmail())
-                    .authid(authid.get())
-                    .build());
+            boolean result = updateAuthProducer.updateAuth(UpdateAuthModel.builder().email(updateRequestDto.getEmail()).authid(authid.get()).build());
             if (result == true) {
                 new Thread(() -> {
                     if (updateRequestDto.getImage() != null) {
@@ -147,13 +130,8 @@ public class AdminService extends ServiceManager<Admin, String> {
         return false;
     }
 
-
     public void saveAdmin(CreateModel createModel) {
-        Admin admin = Admin.builder()
-                .authid(createModel.getAuthid())
-                .email(createModel.getEmail())
-                .dateOfEmployment(LocalDate.now())
-                .build();
+        Admin admin = Admin.builder().authid(createModel.getAuthid()).email(createModel.getEmail()).dateOfEmployment(LocalDate.now()).build();
         save(admin);
     }
 

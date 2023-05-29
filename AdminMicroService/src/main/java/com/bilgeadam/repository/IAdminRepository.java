@@ -8,10 +8,9 @@ import java.util.Optional;
 
 
 @Repository
-public interface IAdminRepository extends MongoRepository<Admin,String> {
+public interface IAdminRepository extends MongoRepository<Admin, String> {
 
     Optional<Admin> findOptionalByAuthid(Long authid);
-
 
 
 }

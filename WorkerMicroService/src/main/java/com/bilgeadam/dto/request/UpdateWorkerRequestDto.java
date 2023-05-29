@@ -12,18 +12,11 @@ public class UpdateWorkerRequestDto {
 
     String token;
     String name;
-
     String secondname;
-
     String surname;
-
     String secondSurname;
-
     String email;
-
     String address;
-
     String companyPhone;
-
     MultipartFile image;
 }

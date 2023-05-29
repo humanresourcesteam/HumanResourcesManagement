@@ -15,11 +15,7 @@ import java.time.LocalDate;
 public class UpdateAuthModel implements Serializable {
 
     String email;
-
-
     Long authid;
-
-
 
 
 }
