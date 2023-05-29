@@ -11,8 +11,8 @@ public class UpdateAuthProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public boolean updateAuth(UpdateAuthModel updateAuthModel){
-       return (boolean) rabbitTemplate.convertSendAndReceive("exchange-update-auth","key-update-auth",updateAuthModel);
+    public boolean updateAuth(UpdateAuthModel updateAuthModel) {
+        return (boolean) rabbitTemplate.convertSendAndReceive("exchange-update-auth", "key-update-auth", updateAuthModel);
 
     }
 }

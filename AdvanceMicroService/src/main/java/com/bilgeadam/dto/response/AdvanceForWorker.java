@@ -2,7 +2,6 @@ package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -25,6 +24,6 @@ public class AdvanceForWorker {
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+    String currency;
     AdvanceRequestType advanceRequestType;
 }

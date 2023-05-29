@@ -15,8 +15,6 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity {
 
     boolean state;
-
     Long createdate;
-
     Long updatedate;
 }

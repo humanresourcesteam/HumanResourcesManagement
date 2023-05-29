@@ -3,9 +3,7 @@ package com.bilgeadam.repository.entity;
 
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -20,7 +18,7 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 @Document
-public class Advance extends BaseEntity{
+public class Advance extends BaseEntity {
     @Id
     String id;
 
@@ -41,7 +39,7 @@ public class Advance extends BaseEntity{
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+    String currency;
 
     AdvanceRequestType advanceRequestType;
 

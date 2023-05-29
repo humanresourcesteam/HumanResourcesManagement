@@ -3,6 +3,7 @@ package com.bilgeadam.controller;
 // bilgeadam
 
 import com.bilgeadam.dto.request.BaseRequestDto;
+import com.bilgeadam.dto.request.ChangePassword;
 import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.LoginResponseDto;
@@ -35,9 +36,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.doLogin(loginRequestDto));
 
     }
-
     @GetMapping("/newemployee")
     public ResponseEntity<List<NewEmployeeResponseDto>> getAllNewEmployee(BaseRequestDto baseRequestDto) {
         return ResponseEntity.ok(authService.getAllNewEmployee(baseRequestDto));
+    }
+
+    @PostMapping("/changepassword")
+    public ResponseEntity<?>changepassword(@RequestBody ChangePassword changePassword){
+        return ResponseEntity.ok(authService.changePassword(changePassword));
     }
 }

@@ -7,12 +7,11 @@ import com.bilgeadam.dto.response.DetailResponseDto;
 import com.bilgeadam.dto.response.SummaryResponseDto;
 import com.bilgeadam.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+
+
 import java.util.List;
 
 import static com.bilgeadam.constant.EndPoints.*;
@@ -25,8 +24,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping( UPDATE)
-    public ResponseEntity<Boolean> updateInfo( UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
-        System.out.println(updateRequestDto);
+    public ResponseEntity<Boolean> updateInfo( UpdateAdminInfoRequestDto updateRequestDto) {
         return ResponseEntity.ok(adminService.updateInfo(updateRequestDto));
     }
     @GetMapping(SUMMARY)

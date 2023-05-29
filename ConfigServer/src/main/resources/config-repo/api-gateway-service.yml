@@ -1,6 +1,9 @@
 server:
   port: 80
 spring:
+  servlet:
+    multipart:
+      enable: false
   main:
     web-application-type: reactive
   cloud:
@@ -60,7 +63,7 @@ spring:
                 fallbackuri: forward:/fallbackmanager
         - id: worker-micro-service
           predicates:
-            - Path=/worker/**
+            - Path=/workers/**
           uri: http://localhost:9093
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
@@ -70,7 +73,7 @@ spring:
                 fallbackuri: forward:/fallbackworker
         - id: mail-micro-service
           predicates:
-            - Path=/worker/**
+            - Path=/mail/**
           uri: http://localhost:8082
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin

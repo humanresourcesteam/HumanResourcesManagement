@@ -13,7 +13,6 @@ import com.bilgeadam.rabbitmq.model.CreateManager;
 import com.bilgeadam.rabbitmq.producer.ManagerProducer;
 import com.bilgeadam.repository.IManagerRepository;
 import com.bilgeadam.repository.entity.Manager;
-import com.bilgeadam.utility.FileService;
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
@@ -21,26 +20,24 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
+
 
 @Service
 public class ManagerService extends ServiceManager<Manager, String> {
 
     private final IManagerRepository managerRepository;
     private final ManagerProducer managerProducer;
-    private final FileService fileService;
+
     private final JwtTokenManager jwtTokenManager;
 
-    public ManagerService(IManagerRepository managerRepository, ManagerProducer managerProducer, FileService fileService, JwtTokenManager jwtTokenManager) {
+    public ManagerService(IManagerRepository managerRepository, ManagerProducer managerProducer, JwtTokenManager jwtTokenManager) {
         super(managerRepository);
         this.managerRepository = managerRepository;
         this.managerProducer = managerProducer;
-        this.fileService = fileService;
         this.jwtTokenManager = jwtTokenManager;
     }
-
-    public boolean addNewManager(AddManagerRequestDto addManagerRequestDto) throws IOException {
+    public boolean addNewManager(AddManagerRequestDto addManagerRequestDto)  {
         String companyId = managerProducer.companyIdForManager(CompanyName.builder()
                 .companyName(addManagerRequestDto.getCompanyName())
                 .build());
@@ -54,11 +51,18 @@ public class ManagerService extends ServiceManager<Manager, String> {
                 .build());
         if (result == 0L) throw new ManagerException(EErrorType.AUTH_EMAIL_ERROR);
         else {
+
+            String url = imageUpload(addManagerRequestDto.getImage());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             Manager manager = Manager.builder()
                     .address(addManagerRequestDto.getAddress())
                     .email(addManagerRequestDto.getEmail())
                     .firstName(addManagerRequestDto.getFirstName())
-                    .image(imageUpload(addManagerRequestDto.getImage()))
+                    .image(url)
                     .phone(addManagerRequestDto.getPhone())
                     .identificationNumber(addManagerRequestDto.getIdentificationNumber())
                     .dateOfEmployment(addManagerRequestDto.getDateOfEmployment())
@@ -68,12 +72,12 @@ public class ManagerService extends ServiceManager<Manager, String> {
                     .birthdayPlace(addManagerRequestDto.getBirthdayPlace())
                     .birthDate(addManagerRequestDto.getBirthDate())
                     .build();
+
             save(manager);
             return true;
         }
         }
     }
-
     public List<SumamryInfoManager> getAllManagerSummaryInfo() {
         List<SumamryInfoManager> sumamryInfoManagers = new ArrayList<>();
         managerRepository.findAll().forEach(x -> {
@@ -89,13 +93,11 @@ public class ManagerService extends ServiceManager<Manager, String> {
         });
         return sumamryInfoManagers;
     }
-
     public GetAllInfoManager getAllInfo(String id) {
         Optional<Manager> managerOptional = managerRepository.findById(id);
         return IManagerMapper.INSTANCE.froInfoManager(managerOptional.get());
 
     }
-
     public List<SumamryInfoManager> getTop5Manager() {
         List<SumamryInfoManager> sumamryInfoManagers = new ArrayList<>();
         managerRepository.findTop5ByOrderByCreatedateDesc().forEach(x -> {
@@ -109,13 +111,6 @@ public class ManagerService extends ServiceManager<Manager, String> {
         });
         return sumamryInfoManagers;
     }
-
-//    public String  workerCompanyName(WorkerModel workerModel) {
-//        Optional<Manager> manager = managerRepository.findOptionalById(workerModel.getId());
-//        manager.get().
-//        return
-//    }
-
     public String imageUpload(MultipartFile file) {
         // Configure
         Map config = new HashMap();
@@ -134,22 +129,18 @@ public class ManagerService extends ServiceManager<Manager, String> {
             return null;
         }
     }
-
-
     public String getImageForManager(BaseRequestDto baseRequestDto) {
         Optional<Long> authId = jwtTokenManager.getIdFromToken(baseRequestDto.getToken());
         if (authId.isEmpty()) throw new ManagerException(EErrorType.INVALID_TOKEN);
         Optional<Manager> manager = managerRepository.findOptionalByAuthid(authId.get());
         return manager.get().getImage();
     }
-
     public GetAllInfoManager getInfoForManager(BaseRequestDto baseRequestDto) {
         Optional<Long> authId = jwtTokenManager.getIdFromToken(baseRequestDto.getToken());
         if (authId.isEmpty()) throw new ManagerException(EErrorType.INVALID_TOKEN);
         Optional<Manager> manager = managerRepository.findOptionalByAuthid(authId.get());
         return IManagerMapper.INSTANCE.froInfoManager(manager.get());
     }
-
     public SummarForCompany summaryForCompany(String companyId) {
 
         Optional<Manager> manager = managerRepository.findOptionalByCompanyid(companyId);
@@ -161,7 +152,5 @@ public class ManagerService extends ServiceManager<Manager, String> {
                 .image(manager.get().getImage())
                 .build();
         return summarForCompany;
-
-
     }
 }

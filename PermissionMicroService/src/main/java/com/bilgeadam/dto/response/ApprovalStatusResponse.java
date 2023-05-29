@@ -14,16 +14,10 @@ import java.time.LocalDate;
 public class ApprovalStatusResponse {
 
     String workerid;
-
     TypeOfPermit typeOfPermit;
-
     LocalDate startDate;
-
     LocalDate endDate;
-
     LocalDate dateOfRequest;
-
     Integer numberOfDays;
-
     ApprovalStatus approvalStatus;
 }

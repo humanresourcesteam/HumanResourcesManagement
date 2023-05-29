@@ -1,6 +1,5 @@
 server:
   port: 9094
-
 spring:
   servlet:
     multipart:
@@ -9,7 +8,7 @@ spring:
   rabbitmq:
     host: localhost
     username: user
-    password: user
+    password: password
     port: 5672
   data:
     mongodb:

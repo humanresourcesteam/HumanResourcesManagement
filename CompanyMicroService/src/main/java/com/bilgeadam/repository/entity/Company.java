@@ -17,41 +17,24 @@ import java.time.LocalDate;
 @Data
 @SuperBuilder
 @Document
-public class Company extends BaseEntity{
+public class Company extends BaseEntity {
 
     @Id
     String id;
-
     Long authid;
-
     String name;
-
-
-    Title title ;
-
+    Title title;
     String centralRegistrySystem;
-
     String taxNumber;
-
     String taxOffice;
-
     String image;
-
     String phone;
-
     String address;
-
     String email;
-
     Integer numberOfWorkers;
-
     LocalDate yearOfEstablishment;
-
     LocalDate contractStartYear;
-
     LocalDate contractEndYear;
-
-
-    Status status ;
+    Status status;
 
 }

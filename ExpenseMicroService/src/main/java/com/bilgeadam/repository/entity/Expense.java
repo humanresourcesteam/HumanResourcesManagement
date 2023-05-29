@@ -24,26 +24,17 @@ public class Expense extends BaseEntity{
 
     @Id
     String id;
-
     String workerid;
-
     String managerid;
-
     ExpenditureType expenditureType;
-
     BigDecimal amountOfExpenditure;
-
     String currency;
-
     LocalDate replyDate;
-
     ApprovalStatus approvalStatus;
     List<String> file;
     LocalDate requestDate;
     String desc;
-
     String name;
-
     String surname;
 
 }

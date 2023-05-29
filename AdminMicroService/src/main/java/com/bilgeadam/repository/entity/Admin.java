@@ -19,8 +19,6 @@ import java.time.LocalDate;
 public class Admin extends BaseEntity {
 
 
-    // FOTOGRAF EKLEME İŞLEMİ BİRLİKTE BAKILACAK...
-
     @Id
     String id;
     Long authid;

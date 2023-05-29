@@ -26,14 +26,6 @@ public class PermissionService extends ServiceManager<Permission, String> {
         this.permissionRepository = permissionRepository;
     }
 
-//    public RequestForPermissionRequestDto getTheRequestForPermission(PermissionRequestModel permissionRequestModel) {
-//        RequestForPermissionRequestDto requestForPermissionRequestDto = new RequestForPermissionRequestDto();
-//        requestForPermissionRequestDto.setWorkerid(permissionRequestModel.getWorkerid());
-//        requestForPermissionRequestDto.setWorkerName(permissionRequestModel.getWorkerName());
-//        requestForPermissionRequestDto.setTypeOfPermit(permissionRequestModel.getTypeOfPermit());
-//        requestForPermissionRequestDto.set
-//    }
-
     public boolean createPermission(CreatePermissionRequestDto createPermissionRequestDto) {
         Permission permission = Permission.builder()
                 .approvalStatus(PENDING_APPROVAL)
@@ -50,40 +42,6 @@ public class PermissionService extends ServiceManager<Permission, String> {
         save(permission);
         return true;
     }
-
-//    public WorkerPermissionForManager workerPermissionForManager(String managerid) {
-//        Optional<Permission> permission = permissionRepository.findOptionalByManagerid(managerid);
-//        WorkerPermissionForManager workerPermissionForManager = WorkerPermissionForManager.builder()
-//                .approvalStatus(permission.get().getApprovalStatus())
-//                .typeOfPermit(permission.get().getTypeOfPermit())
-//                .startDate(permission.get().getStartDate())
-//                .replyDate(permission.get().getReplyDate())
-//                .endDate(permission.get().getEndDate())
-//                .numberOfDays(permission.get().getNumberOfDays())
-//                .dateOfRequest(permission.get().getDateOfRequest())
-//                .workerid(permission.get().getWorkerid())
-//                .build();
-//        return workerPermissionForManager;
-//    }
-//
-//    // SU 2 METHODU EMAILDEN DOLAYI CALISTIRAMADIM.. CALISIP CALISMADIKLARINDAN EMIN DEGILIM ,, METODLARI KENDIM YAZAYIM DIYORSAN BU METHODU YORUMA ALIRSIN ...
-//    public List<WorkerPermissionForManager> sortByStatus(String managerId, List<WorkerPermissionForManager> workerPermissionForManagers) {
-//        Optional<Permission> permission = permissionRepository.findOptionalByManagerid(managerId);
-//
-//        Comparator<WorkerPermissionForManager> workerPermissionComparator = new Comparator<WorkerPermissionForManager>() {
-//            @Override
-//            public int compare(WorkerPermissionForManager o1, WorkerPermissionForManager o2) {
-//                String[] sortByStatus = {"PENDING_APPROVAL", "APPROVED", "REJECTED"};
-//                int index1 = Arrays.asList(sortByStatus).indexOf(o1.getApprovalStatus());
-//                int index2 = Arrays.asList(sortByStatus).indexOf(o2.getApprovalStatus());
-//                return Integer.compare(index1, index2);
-//            }
-//        };
-//
-//        Collections.sort(workerPermissionForManagers, workerPermissionComparator);
-//        return workerPermissionForManagers;
-//    }
-
     public List<WorkerPermissionForWorker> getPermissionsForWorker(String workerid) {
         List<Permission> permission = permissionRepository.findOptionalByWorkerid(workerid);
         List<WorkerPermissionForWorker> workers = new ArrayList<>();
@@ -128,45 +86,6 @@ public class PermissionService extends ServiceManager<Permission, String> {
         update(permission.get());
         return true;
     }
-
-
-//    // listeleme yapılırken desc pending öncelikli olacak
-//    public List<ApprovalStatusResponse> getApprovalStatus() {
-//        List<ApprovalStatusResponse>approvalStatusResponses = new ArrayList<>();
-//
-//        permissionRepository.findOptionalByOrderApprovalStatusDesc().forEach(x->{
-//            approvalStatusResponses.add(ApprovalStatusResponse.builder()
-//                            .workerid(x.getWorkerid())
-//                            .dateOfRequest(x.getDateOfRequest())
-//                            .typeOfPermit(x.getTypeOfPermit())
-//                            .numberOfDays(x.getNumberOfDays())
-//                            .startDate(x.getStartDate())
-//                            .endDate(x.getEndDate())
-//                            .approvalStatus(x.getApprovalStatus())
-//                            .numberOfDays(x.getNumberOfDays())
-//                    .build());
-//        });
-//        return approvalStatusResponses;
-//    }
-//
-//    // onaylı olanları listele ?
-//    public List<ApprovalStatusResponse> getApprovalStatusApproved() {
-//        List<ApprovalStatusResponse>approvalStatusResponses = new ArrayList<>();
-//
-//        permissionRepository.findOptionalByApprovalStatus().forEach(x->{
-//            approvalStatusResponses.add(ApprovalStatusResponse.builder()
-//                    .workerid(x.getWorkerid())
-//                    .dateOfRequest(x.getDateOfRequest())
-//                    .approvalStatus(x.getApprovalStatus())
-//                    .typeOfPermit(x.getTypeOfPermit())
-//                    .numberOfDays(x.getNumberOfDays())
-//                    .startDate(x.getStartDate())
-//                    .endDate(x.getEndDate())
-//                    .numberOfDays(x.getNumberOfDays())
-//                    .build());
-//        });
-//        return approvalStatusResponses;
-//    }
 
 
 }

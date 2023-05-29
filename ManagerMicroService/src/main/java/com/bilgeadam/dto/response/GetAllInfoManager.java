@@ -19,16 +19,10 @@ public class GetAllInfoManager {
     String surname;
     String email;
     LocalDate dateOfEmployment;
-
     String role = "MANAGER";
-
     String address;
-
     String phone;
-
     String identificationNumber;
-
     String birthdayPlace;
-
     LocalDate birthDate;
 }

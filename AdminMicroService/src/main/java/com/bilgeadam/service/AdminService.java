@@ -12,9 +12,6 @@ import com.bilgeadam.rabbitmq.model.UpdateAuthModel;
 import com.bilgeadam.rabbitmq.producer.UpdateAuthProducer;
 import com.bilgeadam.repository.IAdminRepository;
 import com.bilgeadam.repository.entity.Admin;
-
-import com.bilgeadam.utility.FileService;
-
 import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import com.cloudinary.Cloudinary;
@@ -22,7 +19,6 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -30,17 +26,13 @@ import java.util.*;
 public class AdminService extends ServiceManager<Admin, String> {
 
     private final IAdminRepository repository;
-
     private final JwtTokenManager jwtTokenManager;
-
     private final UpdateAuthProducer updateAuthProducer;
-    private final FileService fileService;
 
-    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer, FileService fileService) {
+    public AdminService(IAdminRepository repository, JwtTokenManager jwtTokenManager, UpdateAuthProducer updateAuthProducer) {
         super(repository);
         this.repository = repository;
         this.jwtTokenManager = jwtTokenManager;
-        this.fileService = fileService;
         this.updateAuthProducer = updateAuthProducer;
 
     }
@@ -50,11 +42,7 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (auth.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         List<SummaryResponseDto> summaryList = new ArrayList<>();
         findAll().forEach(x -> {
-            summaryList.add(SummaryResponseDto.builder()
-                    .email(x.getEmail())
-                    .surname(x.getSurname())
-                    .firstName(x.getFirstName())
-                    .build());
+            summaryList.add(SummaryResponseDto.builder().email(x.getEmail()).surname(x.getSurname()).firstName(x.getFirstName()).build());
         });
         return summaryList;
     }
@@ -65,12 +53,7 @@ public class AdminService extends ServiceManager<Admin, String> {
         if (auth.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         List<DetailResponseDto> detailInformation = new ArrayList<>();
         findAll().forEach(x -> {
-            detailInformation.add(DetailResponseDto.builder()
-                    .surname(x.getSurname())
-                    .email(x.getEmail())
-                    .dateOfEmployment(x.getDateOfEmployment())
-                    .firstName(x.getFirstName())
-                    .build());
+            detailInformation.add(DetailResponseDto.builder().surname(x.getSurname()).email(x.getEmail()).dateOfEmployment(x.getDateOfEmployment()).firstName(x.getFirstName()).build());
         });
         return detailInformation;
     }
@@ -82,52 +65,59 @@ public class AdminService extends ServiceManager<Admin, String> {
         return IAdminMapper.INSTANCE.toDetailResponseDto(admin.get());
     }
 
-    public String imageUpload(MultipartFile file, Long id) {
+    public String imageUpload(MultipartFile file) {
         // Configure
-        Map config = new HashMap();
+        Map<String, String> config = new HashMap<>();
         config.put("cloud_name", "doa04qdhh");
         config.put("api_key", "261194321947226");
         config.put("api_secret", "K5_9m33MSDBvu4MZuHhHWeFxNeA");
         Cloudinary cloudinary = new Cloudinary(config);
-
         try {
             Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             String url = (String) result.get("url");
-            System.out.println(url + " --------------------------");
             return url;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.getMessage();
             return null;
         }
     }
 
-    public boolean updateInfo(UpdateAdminInfoRequestDto updateRequestDto) throws IOException {
+    public boolean updateInfo(UpdateAdminInfoRequestDto updateRequestDto) {
         Optional<Long> authid = jwtTokenManager.getIdFromToken(updateRequestDto.getToken());
         if (authid.isEmpty()) throw new AdminException(EErrorType.INVALID_TOKEN);
         Optional<Admin> admin = repository.findOptionalByAuthid(authid.get());
         if (admin.get().getEmail().equals(updateRequestDto.getEmail())) {
-            if (updateRequestDto.getImage() != null) {
-                admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
+            new Thread(() -> {
+                if (updateRequestDto.getImage() != null) admin.get().setImage(imageUpload(updateRequestDto.getImage()));
+                update(admin.get());
+            }).start();
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
             admin.get().setEmail(updateRequestDto.getEmail());
             admin.get().setSurname(updateRequestDto.getSurname());
-        //    admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
             admin.get().setAuthid(admin.get().getAuthid());
             admin.get().setFirstName(updateRequestDto.getFirstName());
             update(admin.get());
+            return true;
         } else {
-            boolean result = updateAuthProducer.updateAuth(UpdateAuthModel.builder()
-                    .email(updateRequestDto.getEmail())
-                    .authid(authid.get())
-                    .build());
+            boolean result = updateAuthProducer.updateAuth(UpdateAuthModel.builder().email(updateRequestDto.getEmail()).authid(authid.get()).build());
             if (result == true) {
-                if (updateRequestDto.getImage() != null) {
-
-                    admin.get().setImage(imageUpload(updateRequestDto.getImage(), authid.get()));
-               }
+                new Thread(() -> {
+                    if (updateRequestDto.getImage() != null) {
+                        admin.get().setImage(imageUpload(updateRequestDto.getImage()));
+                        update(admin.get());
+                    }
+                }).start();
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 admin.get().setEmail(updateRequestDto.getEmail());
                 admin.get().setSurname(updateRequestDto.getSurname());
-        //        admin.get().setDateOfEmployment(updateRequestDto.getDateOfEmployment());
                 admin.get().setAuthid(admin.get().getAuthid());
                 admin.get().setFirstName(updateRequestDto.getFirstName());
                 update(admin.get());
@@ -137,13 +127,8 @@ public class AdminService extends ServiceManager<Admin, String> {
         return false;
     }
 
-
     public void saveAdmin(CreateModel createModel) {
-        Admin admin = Admin.builder()
-                .authid(createModel.getAuthid())
-                .email(createModel.getEmail())
-                .dateOfEmployment(LocalDate.now())
-                .build();
+        Admin admin = Admin.builder().authid(createModel.getAuthid()).email(createModel.getEmail()).dateOfEmployment(LocalDate.now()).build();
         save(admin);
     }
 

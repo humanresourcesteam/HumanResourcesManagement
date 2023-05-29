@@ -16,23 +16,14 @@ import java.time.LocalDate;
 public class WorkerPermissionForManager {
 
     String id;
-
     String workerid;
     TypeOfPermit typeOfPermit;
-
     LocalDate startDate;
-
     LocalDate endDate;
-
     LocalDate dateOfRequest;
-
     Integer numberOfDays;
-
     ApprovalStatus approvalStatus;
-
     LocalDate replyDate;
-
     String name;
-
     String surname;
 }

@@ -3,7 +3,6 @@ package com.bilgeadam.dto.response;
 
 import com.bilgeadam.repository.enums.AdvanceRequestType;
 import com.bilgeadam.repository.enums.ApprovalStatus;
-import com.bilgeadam.repository.enums.ECurrency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +34,7 @@ public class WorkerAdvanceForManager {
 
     BigDecimal advanceAmount;
 
-    ECurrency currency;
+    String currency;
     AdvanceRequestType advanceRequestType;
 
 }

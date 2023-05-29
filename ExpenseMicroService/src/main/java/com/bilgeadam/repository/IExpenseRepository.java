@@ -10,11 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface IExpenseRepository extends MongoRepository<Expense,String> {
-//    Optional<Expense> findOptionalByManagerid(String managerid);
-//
-//    List<Expense> findOptionalByOrderApprovalStatusDesc(ApprovalStatus approvalStatus);
-//
-//    List<Expense> findOptionalByApprovalStatus(ApprovalStatus approvalStatus);
 
     List<Expense> findByWorkerid(String workerid);
     List<Expense> findByManagerid(String managerid);

@@ -20,27 +20,16 @@ public class Permission extends BaseEntity {
 
     @Id
     String id;
-
     String managerid;
-
     String workerid;
-
     TypeOfPermit typeOfPermit;
-
     LocalDate startDate;
-
     LocalDate endDate;
-
     LocalDate dateOfRequest;
-
     Integer numberOfDays;
-
     ApprovalStatus approvalStatus;
-
     LocalDate replyDate;
-
     String name;
-
     String surname;
 
 }

@@ -25,9 +25,7 @@ public class WorkerPermissionForWorker {
     LocalDate endDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate dateOfRequest;
-
     Integer numberOfDays;
-
     ApprovalStatus approvalStatus;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate replyDate;

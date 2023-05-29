@@ -16,32 +16,32 @@ public class JwtTokenManager {
     @Value("${jwt.secretKey}")
     private String passwordKey;
 
-    private final Long exTime = 1000L*60*600;
+    private final Long exTime = 1000L * 60 * 600;
 
-    public Optional<String> createToken(Long id){
-        String token ="";
+    public Optional<String> createToken(Long id) {
+        String token = "";
         try {
             token = JWT.create().withAudience()
-                    .withClaim("id",id)
+                    .withClaim("id", id)
                     .withIssuer("bilgeadam")
                     .withIssuedAt(new Date())
-                    .withExpiresAt(new Date(System.currentTimeMillis()+exTime))
+                    .withExpiresAt(new Date(System.currentTimeMillis() + exTime))
                     .sign(Algorithm.HMAC512(passwordKey));
             return Optional.of(token);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             return Optional.empty();
         }
     }
 
-    public Optional<Long> getIdFromToken(String token){
+    public Optional<Long> getIdFromToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC512(passwordKey);
             JWTVerifier jwtVerifier = JWT.require(algorithm)
                     .withIssuer("bilgeadam").build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
-            if (decodedJWT==null) return Optional.empty();
-            return  Optional.of(decodedJWT.getClaim("id").asLong());
-        }catch (Exception exception){
+            if (decodedJWT == null) return Optional.empty();
+            return Optional.of(decodedJWT.getClaim("id").asLong());
+        } catch (Exception exception) {
             return Optional.empty();
         }
     }

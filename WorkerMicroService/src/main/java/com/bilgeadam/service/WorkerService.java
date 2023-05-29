@@ -29,9 +29,7 @@ import java.util.*;
 public class WorkerService extends ServiceManager<Worker, String> {
 
     private final IWorkerRepository workerRepository;
-
     private final WorkerProducer workerProducer;
-
     private final JwtTokenManager jwtTokenManager;
 
     public WorkerService(IWorkerRepository workerRepository, WorkerProducer workerProducer, JwtTokenManager jwtTokenManager) {
@@ -42,14 +40,12 @@ public class WorkerService extends ServiceManager<Worker, String> {
     }
 
     public Boolean addWorker(AddWorkerRequestDto workerRequestDto) {
-        Long result = workerProducer.createAuth(CreateWorker.builder()
-                .email(workerRequestDto.getEmail()).build());
+        Long result = workerProducer.createAuth(CreateWorker.builder().email(workerRequestDto.getEmail()).build());
         if (result != 0L) {
             Optional<Worker> workerOptional = workerRepository.findOptionalByIdentificationNumber(workerRequestDto.getIdentificationNumber());
             if (workerOptional.isPresent()) throw new WorkerException(EErrorType.WORKER_HAS_BEEN);
             if (workerRequestDto.getImage() == null) {
-                Worker worker = Worker.builder()
-                        .managerid(workerRequestDto.getManagerid())
+                Worker worker = Worker.builder().managerid(workerRequestDto.getManagerid())
                         .companyid(workerRequestDto.getCompanyid())
                         .image("https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg")
                         .name(workerRequestDto.getName())
@@ -60,8 +56,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .birthPlace(workerRequestDto.getBirthPlace())
                         .identificationNumber(workerRequestDto.getIdentificationNumber())
                         .dateOfEmployment(workerRequestDto.getDateOfEmployment())
-                        .activity(Activity.WORKING)
-                        .occupation(workerRequestDto.getOccupation())
+                        .activity(Activity.WORKING).occupation(workerRequestDto.getOccupation())
                         .email(workerRequestDto.getEmail())
                         .authid(result)
                         .address(workerRequestDto.getAddress())
@@ -74,19 +69,15 @@ public class WorkerService extends ServiceManager<Worker, String> {
                         .managerid(workerRequestDto.getManagerid())
                         .companyid(workerRequestDto.getCompanyid())
                         .image(imageUpload(workerRequestDto.getImage()))
-                        .name(workerRequestDto.getName())
-                        .secondname(workerRequestDto.getSecondname())
+                        .name(workerRequestDto.getName()).secondname(workerRequestDto.getSecondname())
                         .surname(workerRequestDto.getSurname())
                         .secondSurname(workerRequestDto.getSecondSurname())
                         .birthDate(workerRequestDto.getBirthDate())
                         .birthPlace(workerRequestDto.getBirthPlace())
                         .identificationNumber(workerRequestDto.getIdentificationNumber())
                         .dateOfEmployment(workerRequestDto.getDateOfEmployment())
-                        .activity(Activity.WORKING)
-                        .occupation(workerRequestDto.getOccupation())
-                        .email(workerRequestDto.getEmail())
-                        .authid(result)
-                        .address(workerRequestDto.getAddress())
+                        .activity(Activity.WORKING).occupation(workerRequestDto.getOccupation())
+                        .email(workerRequestDto.getEmail()).authid(result).address(workerRequestDto.getAddress())
                         .salary(workerRequestDto.getSalary())
                         .companyPhone(workerRequestDto.getCompanyPhone())
                         .build();
@@ -103,6 +94,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
         Optional<Worker> workerOptional = workerRepository.findOptionalByAuthid(auth.get());
         return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
     }
+
     public GetAllWorker getAllWorkerForManager(String id) {
         Optional<Worker> workerOptional = findById(id);
         return IWorkerMapper.INSTANCE.fromInfoWorker(workerOptional.get());
@@ -110,17 +102,9 @@ public class WorkerService extends ServiceManager<Worker, String> {
 
     public List<WorkerListDto> workerList(String id) {
         List<WorkerListDto> workerList = new ArrayList<>();
-        String companyName = workerProducer.getNameWorkerFromCompany(WorkerModel.builder()
-                .id(workerRepository.findOptionalByCompanyid(id).get().getCompanyid())
-                .build());
+        String companyName = workerProducer.getNameWorkerFromCompany(WorkerModel.builder().id(workerRepository.findOptionalByCompanyid(id).get().getCompanyid()).build());
         workerRepository.findAll().forEach(x -> {
-            workerList.add(WorkerListDto.builder()
-                    .name(x.getName())
-                    .email(x.getEmail())
-                    .companyname(companyName)
-                    .surname(x.getSurname())
-                    .phone(x.getCompanyPhone())
-                    .build());
+            workerList.add(WorkerListDto.builder().name(x.getName()).email(x.getEmail()).companyname(companyName).surname(x.getSurname()).phone(x.getCompanyPhone()).build());
         });
         return workerList;
     }
@@ -148,15 +132,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
     public List<SummaryWorker> getAllWorkerForCompany(String companyid) {
         List<SummaryWorker> summaryWorkers = new ArrayList<>();
         workerRepository.findByCompanyid(companyid).forEach(x -> {
-            summaryWorkers.add(SummaryWorker.builder()
-                    .surname(x.getSurname())
-                    .activity(x.getActivity())
-                    .companyPhone(x.getCompanyPhone())
-                    .email(x.getEmail())
-                    .name(x.getName())
-                    .id(x.getId())
-                    .image(x.getImage())
-                    .build());
+            summaryWorkers.add(SummaryWorker.builder().surname(x.getSurname()).activity(x.getActivity()).companyPhone(x.getCompanyPhone()).email(x.getEmail()).name(x.getName()).id(x.getId()).image(x.getImage()).build());
 
         });
 
@@ -167,12 +143,7 @@ public class WorkerService extends ServiceManager<Worker, String> {
 
         List<NewEmployeeSummary> newEmployeeSummaries = new ArrayList<>();
         workerRepository.findTop5ByOrderByCreatedateDesc().forEach(x -> {
-            newEmployeeSummaries.add(NewEmployeeSummary.builder()
-                    .image(x.getImage())
-                    .name(x.getName())
-                    .occupation(x.getOccupation())
-                    .surname(x.getSurname())
-                    .build());
+            newEmployeeSummaries.add(NewEmployeeSummary.builder().image(x.getImage()).name(x.getName()).occupation(x.getOccupation()).surname(x.getSurname()).build());
         });
         return newEmployeeSummaries;
     }
@@ -206,5 +177,9 @@ public class WorkerService extends ServiceManager<Worker, String> {
             return true;
         }
         return false;
+    }
+
+    public Long getAllWorkerCount() {
+        return workerRepository.findAll().stream().count();
     }
 }

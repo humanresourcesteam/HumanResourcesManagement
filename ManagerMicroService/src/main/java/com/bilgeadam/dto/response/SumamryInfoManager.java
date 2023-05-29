@@ -16,9 +16,7 @@ public class SumamryInfoManager {
     String firstName;
     String surname;
     String email;
-
     String address;
-
     String phone;
 
 }

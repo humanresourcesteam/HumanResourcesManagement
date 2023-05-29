@@ -20,12 +20,7 @@ import static com.bilgeadam.exception.EErrorType.INTERNAL_ERROR;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    /**
-     * ExceptionHandler -> Kendisine v erilen sınıfın uygulama içinde istisna fırlatması durumunda devreye girer
-     * ve o hatayı yakalar.
-     * @param exception
-     * @return
-     */
+
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
     public ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException exception){
@@ -76,14 +71,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, EErrorType.getHttpStatus());
     }
 
-
-
-    /**
-     * 1- Hatalar tek String şeklinde dönülmemelidir.
-     * 2- Hataları bir JsonObject-Entity şeklinde dönmelisiniz.
-     * 3- Dönüş nesnesini bir method ile oluşturmak mantıklıdır. çünkü method içinde
-     * loglama yapabilir geribildirtimleri toplayabilirsiniz.
-     */
     private ErrorMessage createError(EErrorType EErrorType, Exception exception){
         System.out.println("HATA OLDU.....: "+ exception.getMessage());
         return ErrorMessage.builder()

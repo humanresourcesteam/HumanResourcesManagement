@@ -11,7 +11,6 @@ import lombok.*;
 public class UpdateStatusRequestDto {
 
     String id;
-
     ApprovalStatus status;
 
 }
