@@ -1,0 +1,9 @@
+[submodule "react.js-adminpanel"]
+	path = react.js-adminpanel
+	url = https://github.com/humanresourcesteam/react.js-adminpanel
+[submodule "react.js-managerpanel"]
+	path = react.js-managerpanel
+	url = https://github.com/humanresourcesteam/react.js-managerpanel.git
+[submodule "react.js-workerpanel"]
+	path = react.js-workerpanel
+	url = https://github.com/aliogutcen/react.js-workerpanel.git
